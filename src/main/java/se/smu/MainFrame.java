@@ -57,6 +57,9 @@ public class MainFrame extends JFrame {
 	
 	static int Selectedindex = 0;
 	
+	private Frame3 frame3;
+	private Frame2 frame2;
+	
 	public static Boolean fileIsLive(String isLivefile) {
 	     File f1 = new File(isLivefile); 
 	     if ( f1.exists() ) {
@@ -202,19 +205,38 @@ public class MainFrame extends JFrame {
 		 public void windowDeiconified(WindowEvent e){}
 	}
      
+     class ExitListener3 implements WindowListener{
+		 
+		 public void windowClosing(WindowEvent e){
+			 Frame3.openCheck = 0;
+		 }
+		 public void windowOpened(WindowEvent e){}
+		 public void windowActivated(WindowEvent e){}
+		 public void windowDeactivated(WindowEvent e){}
+		 public void windowClosed(WindowEvent e){}
+		 public void windowIconified(WindowEvent e){}
+		 public void windowDeiconified(WindowEvent e){}
+	}
+     
      class MyActionListener implements ActionListener { 
  		public void actionPerformed(ActionEvent e) { 	
  			JButton b = (JButton)e.getSource();
  			if(b.getText().equals("과목관리")){
  				if (Frame2.openCheck == 0){
-					Frame2 frame2 = new Frame2();
+					frame2 = new Frame2();
 					frame2.setVisible(true);
 					frame2.addWindowListener(new ExitListener2());
 					Frame2.openCheck = 1;
 				}
  			}
  			else if(b.getText().equals("총ToDo관리")){
- 				
+ 				if (Frame3.openCheck == 0){
+					frame3 = new Frame3();
+					//frame3.getContentPane().setBackground(Color.ORANGE);
+					frame3.setVisible(true);
+					frame3.addWindowListener(new ExitListener3());
+					Frame3.openCheck = 1;
+				}
  			}
  			else if(b.getText().equals("삭제")){
  				
