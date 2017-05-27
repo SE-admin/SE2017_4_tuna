@@ -36,6 +36,7 @@ public class Frame2 extends JFrame{
 		private JLabel yearLabel;
 		private JLabel semesterLabel;
 		private JButton addButton = new JButton("등록");
+		private JButton modifyButton = new JButton("수정");
 		private DefaultComboBoxModel<String> FindModel;
 		static int openCheck;
 		
@@ -54,9 +55,11 @@ public class Frame2 extends JFrame{
 			buttonPanel = new JPanel();
 			add(buttonPanel);
 			buttonPanel.add(addButton);
+			buttonPanel.add(modifyButton);
 			buttonPanel.setLocation(720,0);
 			buttonPanel.setSize(80,100);
 			addButton.addActionListener(new MyActionListener());
+			modifyButton.addActionListener(new MyActionListener());
 			//버튼
 			
 			//입력 칸 패널화
@@ -200,6 +203,100 @@ public class Frame2 extends JFrame{
 						yearTextfield.setText("");
 					}
 					
+				}
+				else if(b.getText().equals("수정")){
+					String classname = classnameTextfield.getText();
+					String professor = professorTextfield.getText();
+					int day = dayList.getSelectedIndex();
+					String starttime = (String) starttimeList.getSelectedItem();
+					String endtime = (String) endtimeList.getSelectedItem();
+					String year = yearTextfield.getText();
+					String semester = (String) semeList.getSelectedItem();
+					int index = -1;
+					int row = MainFrame.timeTable.getSelectedRow();
+    				int col = MainFrame.timeTable.getSelectedColumn();
+    				int check = 0;
+					for(int i = 0;i < GlobalVal.aGrade.size(); i++)
+	  	            {
+						if(row > -1&&col > -1)
+						{
+							if(MainFrame.timetableModel.getValueAt(row, col).toString().split(" " + "\\(" + GlobalVal.aGrade.get(i).getprofessor() + "\\)")[0].equals(GlobalVal.aGrade.get(i).getclassname())&&GlobalVal.aGrade.get(i).getyear().equals(MainFrame.yearsemeList.getSelectedItem().toString().split("년도 ")[0])&&GlobalVal.aGrade.get(i).getsemester().equals(MainFrame.yearsemeList.getSelectedItem().toString().split("년도 ")[1].split("학기")[0])){
+								index = i;
+								break;
+							}
+							else{
+								index = -1;
+							}
+						}
+	  	            }
+
+					
+					if (index >= 0)
+					{
+						if(year.equals("")){
+							year = GlobalVal.aGrade.get(index).getyear();
+						}
+						
+						for(int i=0;i<GlobalVal.aGrade.size();i++)
+						{
+							if(GlobalVal.aGrade.get(i).getclassname().equals(classname)){
+								check = 1;
+								break;
+							}
+							
+							if((!GlobalVal.aGrade.get(index).getclassname().equals(GlobalVal.aGrade.get(i).getclassname())))
+							{
+								if(GlobalVal.aGrade.get(i).getyear().equals(year)&&GlobalVal.aGrade.get(i).getsemester().equals(semester)&&GlobalVal.aGrade.get(i).getday() == day){
+									if( (Integer.parseInt(GlobalVal.aGrade.get(i).getstarttime()) <= Integer.parseInt(starttime)) && (Integer.parseInt(GlobalVal.aGrade.get(i).getendtime()) > Integer.parseInt(starttime)) ){
+										check = 1;
+										break;
+									}
+									else if( (Integer.parseInt(GlobalVal.aGrade.get(i).getstarttime()) < Integer.parseInt(endtime)) && (Integer.parseInt(GlobalVal.aGrade.get(i).getendtime()) >= Integer.parseInt(endtime)) ){
+										check = 1;
+										break;
+									}
+								}
+							}
+						}
+						
+						if (check == 0){
+							if ((!GlobalVal.aGrade.get(index).getclassname().equals(classname))&&(!classname.equals(""))){
+								GlobalVal.aGrade.get(index).setclassname(classname);
+							}
+							if ((!GlobalVal.aGrade.get(index).getprofessor().equals(professor))&&(!professor.equals(""))){
+								GlobalVal.aGrade.get(index).setprofessor(professor);
+							}
+							if (GlobalVal.aGrade.get(index).getday() != day){
+								GlobalVal.aGrade.get(index).setday(day);
+							}
+							if ((!GlobalVal.aGrade.get(index).getstarttime().equals(starttime))&&(!starttime.equals(""))){
+								GlobalVal.aGrade.get(index).setstarttime(starttime);
+							}
+							if ((!GlobalVal.aGrade.get(index).getendtime().equals(endtime))&&(!endtime.equals(""))){
+								GlobalVal.aGrade.get(index).setendtime(endtime);
+							}
+							if ((!GlobalVal.aGrade.get(index).getyear().equals(year))&&(!year.equals(""))){
+								GlobalVal.aGrade.get(index).setyear(year);
+							}
+							if ((!GlobalVal.aGrade.get(index).getsemester().equals(semester))&&(!semester.equals(""))){
+								GlobalVal.aGrade.get(index).setsemester(semester);
+							}
+							
+							for(int i = 0; i < GlobalVal.aGrade.get(index).arToDo.size(); i++){
+								GlobalVal.aGrade.get(index).arToDo.get(i).setclassname(GlobalVal.aGrade.get(index).getclassname());
+							}
+							
+							classnameTextfield.setText("");
+							dayList.setSelectedIndex(0);
+							starttimeList.setSelectedIndex(0);
+							endtimeList.setSelectedIndex(0);
+							semeList.setSelectedIndex(0);
+							professorTextfield.setText("");
+							yearTextfield.setText("");
+						}
+						UIUpdate.UpdateTimeTable(MainFrame.yearsemeList.getSelectedItem().toString().split("년도 ")[0], MainFrame.yearsemeList.getSelectedItem().toString().split("년도 ")[1].split("학기")[0]);
+						MainFrame.InitComboBox();
+					}
 				}
 			}
 		}
