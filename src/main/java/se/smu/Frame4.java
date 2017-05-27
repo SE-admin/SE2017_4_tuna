@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -280,12 +281,30 @@ public class Frame4 extends JFrame {
 		add(todotableScrollpane);
 		//ToDO테이블 설정
 		
-		
 		//초기화면 설정
 		UIUpdate.UpdateTodoTable();
 		//초기화면 설정
-		
 	}
+	
+	public boolean checkDate(String szDate, String szFormat) {
+        
+        boolean bResult = true;
+        SimpleDateFormat oDateFormat = new SimpleDateFormat();
+        @SuppressWarnings("unused")
+		Date oDate = new Date();
+ 
+        oDateFormat.applyPattern(szFormat);
+        oDateFormat.setLenient(false);
+         
+        try {
+            oDate = oDateFormat.parse(szDate);
+        } catch (ParseException e) {
+            bResult = false;
+        }
+         
+        return bResult;
+         
+    }
 	
 	DefaultTableCellRenderer checkboxrender = new DefaultTableCellRenderer()
 	 {
@@ -514,7 +533,64 @@ public class Frame4 extends JFrame {
 		public void actionPerformed(ActionEvent e) { 	
 			JButton b = (JButton)e.getSource();
 			if(b.getText().equals("ToDo등록")){
+				int check = 0;
+				String classname = GlobalVal.aGrade.get(SelIndex).getclassname();
+				String ToDoName = todonameTextfield.getText();
+				String endDate = "";
 				
+				String deadLineYear = deadlineyearTextfield.getText();
+				String deadLineMonth = (String) deadLineMonthList.getSelectedItem();
+				String deadLineDay = (String) deadLineDayList.getSelectedItem();
+				String deadLineHour = (String) deadLineHourList.getSelectedItem();
+				String deadLineMin = (String) deadLineMinList.getSelectedItem();
+				String deadLine = deadLineYear + "-" + deadLineMonth + "-" + deadLineDay + " " + deadLineHour + ":" + deadLineMin;
+				if (!checkDate(deadLine,"yyyy-MM-dd HH:mm")){
+					check = 1;
+				}
+				int done = endList.getSelectedIndex();			
+				if (done == 1)
+				{
+					String endDateYear = enddateyearTextfield.getText();
+					String endDateMonth = (String) endDateMonthList.getSelectedItem();
+					String endDateDay = (String) endDateDayList.getSelectedItem();
+					String endDateHour = (String) endDateHourList.getSelectedItem();
+					String endDateMin = (String) endDateMinList.getSelectedItem();
+					endDate = endDateYear + "-" + endDateMonth + "-" + endDateDay + " " + endDateHour + ":" + endDateMin;
+					if (!checkDate(endDate,"yyyy-MM-dd HH:mm")){
+						check = 1;
+					}
+				}
+				int important = importantList.getSelectedIndex();
+				ToDo t1 = new ToDo(ToDoName, deadLine, endDate, done, important, classname);
+				for(int i=0;i<GlobalVal.aGrade.get(SelIndex).arToDo.size();i++)
+				{
+					if(GlobalVal.aGrade.get(SelIndex).arToDo.get(i).gettodoName().equals(ToDoName)){
+						check = 1;
+						break;
+					}
+				}
+				
+				if (check == 0){
+					GlobalVal.aGrade.get(SelIndex).arToDo.add(t1);
+					todonameTextfield.setText("");
+					deadlineyearTextfield.setText("");
+					deadLineMonthList.setSelectedIndex(0);
+					deadLineDayList.setSelectedIndex(0);
+					deadLineHourList.setSelectedIndex(0);
+					deadLineMinList.setSelectedIndex(0);
+					enddateyearTextfield.setText("");
+					endDateMonthList.setSelectedIndex(0);
+					endDateDayList.setSelectedIndex(0);
+					endDateHourList.setSelectedIndex(0);
+					endDateMinList.setSelectedIndex(0);
+					endList.setSelectedIndex(0);
+					importantList.setSelectedIndex(0);
+					UIUpdate.UpdateTodoTable();
+				}
+				if (Frame3.openCheck == 1&&check == 0){
+					GlobalVal.aToDo.add(t1);
+					UIUpdate.UpdateAllTodoTable();
+				}
 			}
 			else if(b.getText().equals("ToDo수정")){
 				
