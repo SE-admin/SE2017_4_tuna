@@ -593,7 +593,106 @@ public class Frame4 extends JFrame {
 				}
 			}
 			else if(b.getText().equals("ToDo수정")){
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
+				int check = 0;
+				int index = todoTable.getSelectedRow();
+				String toDoName = todonameTextfield.getText();
+				String deadLineYear = deadlineyearTextfield.getText();
+				String deadLineMonth = (String) deadLineMonthList.getSelectedItem();
+				String deadLineDay = (String) deadLineDayList.getSelectedItem();
+				String deadLineHour = (String) deadLineHourList.getSelectedItem();
+				String deadLineMin = (String) deadLineMinList.getSelectedItem();
+				String deadLine = deadLineYear + "-" + deadLineMonth + "-" + deadLineDay + " " + deadLineHour + ":" + deadLineMin;
+
 				
+				String endDateYear = enddateyearTextfield.getText();
+				String endDateMonth = (String) endDateMonthList.getSelectedItem();
+				String endDateDay = (String) endDateDayList.getSelectedItem();
+				String endDateHour = (String) endDateHourList.getSelectedItem();
+				String endDateMin = (String) endDateMinList.getSelectedItem();
+				String endDate = endDateYear + "-" + endDateMonth + "-" + endDateDay + " " + endDateHour + ":" + endDateMin;
+
+				
+				int done = endList.getSelectedIndex();		
+				int important = importantList.getSelectedIndex();		
+				Date dt = new Date();
+				
+				for(int i = 0; i < GlobalVal.aGrade.get(SelIndex).arToDo.size();i++){
+					if (GlobalVal.aGrade.get(SelIndex).arToDo.get(i).gettodoName().equals(toDoName)){
+						check = 1;
+						break;
+					}
+				}
+				
+				if (!checkDate(deadLine,"yyyy-MM-dd HH:mm")&&!deadlineyearTextfield.getText().equals("")&&!deadlineyearTextfield.getText().equals(null)){
+					check = 1;
+				}
+				
+				if (!checkDate(endDate,"yyyy-MM-dd HH:mm")&&!enddateyearTextfield.getText().equals("")&&!enddateyearTextfield.getText().equals(null)){
+					check = 1;
+				}
+				
+				
+				if (index >= 0&&check == 0) //Frame4 수정에서 todoname 중복 처리, enddate done여부에따라서 처리
+				{
+					if ((!GlobalVal.aGrade.get(SelIndex).arToDo.get(index).gettodoName().equals(toDoName))&&(!toDoName.equals(""))){
+						GlobalVal.aGrade.get(SelIndex).arToDo.get(index).settodoName(toDoName);
+					}
+					
+					if ((!GlobalVal.aGrade.get(SelIndex).arToDo.get(index).getdeadLine().equals(deadLine))&&(!deadLine.equals(""))&&!deadlineyearTextfield.getText().equals("")&&!deadlineyearTextfield.getText().equals(null)){
+						GlobalVal.aGrade.get(SelIndex).arToDo.get(index).setdeadLine(deadLine);
+					}
+					
+					if ((!GlobalVal.aGrade.get(SelIndex).arToDo.get(index).getendDate().equals(endDate))&&!enddateyearTextfield.getText().equals("")&&!enddateyearTextfield.getText().equals(null)){
+						if(done == 1){
+								GlobalVal.aGrade.get(SelIndex).arToDo.get(index).setendDate(endDate);
+						}
+					}
+					else if ((!GlobalVal.aGrade.get(SelIndex).arToDo.get(index).getendDate().equals(endDate))&&enddateyearTextfield.getText().equals("")&&enddateyearTextfield.getText().equals(null)){
+						if(done == 1){
+							GlobalVal.aGrade.get(SelIndex).arToDo.get(index).setendDate(sdf.format(dt).toString());
+						}
+					}
+					
+					if(done == 1){
+						if ((GlobalVal.aGrade.get(SelIndex).arToDo.get(index).getdone() != done)){
+							GlobalVal.aGrade.get(SelIndex).arToDo.get(index).setdone(1);
+						}
+					}
+					else if(done == 0){
+						if ((GlobalVal.aGrade.get(SelIndex).arToDo.get(index).getdone() != done)){
+							GlobalVal.aGrade.get(SelIndex).arToDo.get(index).setendDate("");
+							GlobalVal.aGrade.get(SelIndex).arToDo.get(index).setdone(0);
+						}
+					}
+					
+					if (important == 1){
+						if ((GlobalVal.aGrade.get(SelIndex).arToDo.get(index).getimportant() != important)){
+							GlobalVal.aGrade.get(SelIndex).arToDo.get(index).setimportant(1);
+						}
+					}
+					else if (important == 0){
+						if ((GlobalVal.aGrade.get(SelIndex).arToDo.get(index).getimportant() != done)){
+							GlobalVal.aGrade.get(SelIndex).arToDo.get(index).setimportant(0);
+						}
+					}
+					
+					todonameTextfield.setText("");
+					deadlineyearTextfield.setText("");
+					deadLineMonthList.setSelectedIndex(0);
+					deadLineDayList.setSelectedIndex(0);
+					deadLineHourList.setSelectedIndex(0);
+					deadLineMinList.setSelectedIndex(0);
+					enddateyearTextfield.setText("");
+					endDateMonthList.setSelectedIndex(0);
+					endDateDayList.setSelectedIndex(0);
+					endDateHourList.setSelectedIndex(0);
+					endDateMinList.setSelectedIndex(0);
+					endList.setSelectedIndex(0);
+					importantList.setSelectedIndex(0);
+					
+					UIUpdate.UpdateTodoTable();
+				}
 			}
 			else if(b.getText().equals("ToDo삭제")){
 
