@@ -633,7 +633,7 @@ public class Frame4 extends JFrame {
 				}
 				
 				
-				if (index >= 0&&check == 0) //Frame4 수정에서 todoname 중복 처리, enddate done여부에따라서 처리
+				if (index >= 0&&check == 0)
 				{
 					if ((!GlobalVal.aGrade.get(SelIndex).arToDo.get(index).gettodoName().equals(toDoName))&&(!toDoName.equals(""))){
 						GlobalVal.aGrade.get(SelIndex).arToDo.get(index).settodoName(toDoName);
@@ -695,7 +695,28 @@ public class Frame4 extends JFrame {
 				}
 			}
 			else if(b.getText().equals("ToDo삭제")){
+				int index = todoTable.getSelectedRow();
+				int rowNum = 0;
+				
+				for(int i = 0;i < GlobalVal.aToDo.size(); i++){
+					if(GlobalVal.aGrade.get(SelIndex).arToDo.get(index).getclassname().equals(GlobalVal.aToDo.get(i).getclassname())){
+						if(GlobalVal.aGrade.get(SelIndex).arToDo.get(index).gettodoName().equals(GlobalVal.aToDo.get(i).gettodoName())){
+							rowNum = i;
+							break;
+						}
+					}
+				}
 
+				if (index >= 0)
+				{
+					GlobalVal.aGrade.get(SelIndex).arToDo.remove(index);
+					UIUpdate.UpdateTodoTable();
+					
+					if (Frame3.openCheck == 1){
+						GlobalVal.aToDo.remove(rowNum);
+						UIUpdate.UpdateAllTodoTable();
+					}
+				}
 			}
 			
 		}
