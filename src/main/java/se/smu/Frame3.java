@@ -3,6 +3,7 @@ package se.smu;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -141,6 +142,15 @@ public class Frame3 extends JFrame {
 	    					}
 	    				}
 	    				GlobalVal.aToDo.get(aGnum).setimportant(1);
+	    				if (Frame4.openCheck == 1){
+	    					UIUpdate.UpdateTodoTable();
+	    				}
+	    				try {
+							FileFunction.save(GlobalVal.aGrade);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 	                } else { // 체크해제시
 	                	for(int i = 0;i < GlobalVal.aGrade.size(); i++){
 	    					if(GlobalVal.aGrade.get(i).getclassname().equals(todotableModel.getValueAt(row, 0))){
@@ -164,6 +174,15 @@ public class Frame3 extends JFrame {
 	    					}
 	    				}
 	    				GlobalVal.aToDo.get(aGnum).setimportant(0);
+	    				if (Frame4.openCheck == 1){
+	    					UIUpdate.UpdateTodoTable();
+	    				}
+	    				try {
+							FileFunction.save(GlobalVal.aGrade);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 	                }
 	            }
 	            else if (column == 4){
@@ -196,6 +215,15 @@ public class Frame3 extends JFrame {
 	    				GlobalVal.aToDo.get(aGnum).setdone(1);
 	    				GlobalVal.aToDo.get(aGnum).setendDate(sdf.format(dt).toString());
 	    				UIUpdate.UpdateAllTodoTable();
+	    				if (Frame4.openCheck == 1){
+	    					UIUpdate.UpdateTodoTable();
+	    				}
+	    				try {
+							FileFunction.save(GlobalVal.aGrade);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 	                } else { // 체크해제시
 	                	for(int i = 0;i < GlobalVal.aGrade.size(); i++){
 	    					if(GlobalVal.aGrade.get(i).getclassname().equals(todotableModel.getValueAt(row, 0))){
@@ -221,6 +249,15 @@ public class Frame3 extends JFrame {
 	    				GlobalVal.aToDo.get(aGnum).setdone(0);
 	    				GlobalVal.aToDo.get(aGnum).setendDate("");
 	    				UIUpdate.UpdateAllTodoTable();
+	    				if (Frame4.openCheck == 1){
+	    					UIUpdate.UpdateTodoTable();
+	    				}
+	    				try {
+							FileFunction.save(GlobalVal.aGrade);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 	                }
 	            }
 	        }
