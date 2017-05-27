@@ -59,6 +59,7 @@ public class MainFrame extends JFrame {
 	
 	private Frame3 frame3;
 	private Frame2 frame2;
+	private Frame4 frame4;
 	
 	public static Boolean fileIsLive(String isLivefile) {
 	     File f1 = new File(isLivefile); 
@@ -179,6 +180,18 @@ public class MainFrame extends JFrame {
         
 	}
 	
+	class ExitListener4 implements WindowListener{
+		 
+		 public void windowClosing(WindowEvent e){
+			 Frame4.openCheck = 0;
+		 }
+		 public void windowOpened(WindowEvent e){}
+		 public void windowActivated(WindowEvent e){}
+		 public void windowDeactivated(WindowEvent e){}
+		 public void windowClosed(WindowEvent e){}
+		 public void windowIconified(WindowEvent e){}
+		 public void windowDeiconified(WindowEvent e){}
+	}
 
 	MouseListener mouseListener = new MouseAdapter() { 
         public void mouseClicked(MouseEvent mouseEvent) {  
@@ -186,7 +199,31 @@ public class MainFrame extends JFrame {
         	if (SwingUtilities.isLeftMouseButton(mouseEvent))
       	  	{
         		if (mouseEvent.getClickCount() == 2) {
-        			
+        			if (Frame4.openCheck == 0){
+        				int row = timeTable.getSelectedRow();
+        				int col = timeTable.getSelectedColumn();
+        				Selectedindex = -1;
+        				for(int i = 0;i < GlobalVal.aGrade.size(); i++)
+          	            {
+        					if(row > -1&&col > -1)
+        					{
+        						if(timetableModel.getValueAt(row, col).toString().split(" " + "\\(" + GlobalVal.aGrade.get(i).getprofessor() + "\\)")[0].equals(GlobalVal.aGrade.get(i).getclassname())&&GlobalVal.aGrade.get(i).getyear().equals(yearsemeList.getSelectedItem().toString().split("년도 ")[0])&&GlobalVal.aGrade.get(i).getsemester().equals(yearsemeList.getSelectedItem().toString().split("년도 ")[1].split("학기")[0])){
+        							Selectedindex = i;
+        							break;
+        						}
+        						else{
+            						Selectedindex = -1;
+            					}
+        					}
+          	            }
+	        			if (Selectedindex >= 0){
+        					frame4 = new Frame4();
+        					frame4.setVisible(true);
+        					frame4.addWindowListener(new ExitListener4());
+        					Frame4.SelIndex = Selectedindex;
+        					Frame4.openCheck = 1;
+        				}
+        			}
         		}
       	  	} 
         } 
