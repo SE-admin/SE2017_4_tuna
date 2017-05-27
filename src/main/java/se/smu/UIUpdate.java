@@ -103,6 +103,63 @@ public class UIUpdate {
 		}
 	}
 	
+	public static void UpdateAllTodoTable(){
+     	Object data[] = new Object[6];
+    		if(GlobalVal.aGrade.size()>0)
+    		{
+	  	  		if (Frame3.todotableModel.getRowCount() > 0) {
+	  	  		    for (int i = Frame3.todotableModel.getRowCount() - 1; i > -1; i--) {
+	  	  		    	Frame3.todotableModel.removeRow(i);
+	  	  		    }
+	  	  		}
+	  	  		for(int i=0;i<GlobalVal.aToDo.size();i++)
+	  	  		{
+	  	  			data[0] = GlobalVal.aToDo.get(i).getclassname();
+	 	  			data[1] = GlobalVal.aToDo.get(i).gettodoName();
+	 	  			data[2] = GlobalVal.aToDo.get(i).getdeadLine();
+	 	  			data[3] = GlobalVal.aToDo.get(i).getendDate();
+	 	  			if (GlobalVal.aToDo.get(i).getdone() == 1){
+	 	  				data[4] = true;
+	 	  			}
+	 	  			else{
+	 	  				data[4] = false;
+	 	  			}
+	 	  			if (GlobalVal.aToDo.get(i).getimportant() == 1){
+	 	  				data[5] = true;
+	 	  			}
+	 	  			else{
+	 	  				data[5] = false;
+	 	  			}
+	 	  			
+	 	  			Frame3.todotableModel.insertRow(i, data);
+	  	  		}
+	  	  		try {
+	  	 			FileFunction.save(GlobalVal.aGrade);
+	  	 		} catch (IOException e) {
+	  	 		// TODO Auto-generated catch block
+	  	 		e.printStackTrace();
+	  	 	}
+    	}
+    	resizeColumnWidth(Frame3.todoTable);
+    }
+	
+	public static void initJTable(){
+    	if(GlobalVal.aGrade.size()>0)
+   		{
+   			int asize = GlobalVal.aToDo.size();
+   			for(int i = 0;i<asize;i++){
+   				GlobalVal.aToDo.remove(0);
+   			}
+   			for(int i = 0;i<GlobalVal.aGrade.size();i++){
+   				for(int j = 0; j<GlobalVal.aGrade.get(i).arToDo.size(); j++)
+   				{
+   					GlobalVal.aToDo.add(GlobalVal.aGrade.get(i).arToDo.get(j));
+   				}
+   			}
+   		}
+    }
+	
+	
 	 public static void resizeColumnWidth(JTable table) {
 	 	    final TableColumnModel columnModel = table.getColumnModel();
 	 	    for (int column = 0; column < table.getColumnCount(); column++) {

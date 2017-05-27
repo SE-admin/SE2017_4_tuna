@@ -104,6 +104,10 @@ public class Frame3 extends JFrame {
 		add(messagePanel);
 		//안내 메시지 설정
 		
+		//초기 화면 업데이트
+		UIUpdate.initJTable();
+		UIUpdate.UpdateAllTodoTable();
+		//초기 화면 업데이트
 
 	}
 	
@@ -191,6 +195,7 @@ public class Frame3 extends JFrame {
 	    				
 	    				GlobalVal.aToDo.get(aGnum).setdone(1);
 	    				GlobalVal.aToDo.get(aGnum).setendDate(sdf.format(dt).toString());
+	    				UIUpdate.UpdateAllTodoTable();
 	                } else { // 체크해제시
 	                	for(int i = 0;i < GlobalVal.aGrade.size(); i++){
 	    					if(GlobalVal.aGrade.get(i).getclassname().equals(todotableModel.getValueAt(row, 0))){
@@ -215,6 +220,7 @@ public class Frame3 extends JFrame {
 	    				}
 	    				GlobalVal.aToDo.get(aGnum).setdone(0);
 	    				GlobalVal.aToDo.get(aGnum).setendDate("");
+	    				UIUpdate.UpdateAllTodoTable();
 	                }
 	            }
 	        }
