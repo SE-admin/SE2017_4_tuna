@@ -276,7 +276,35 @@ public class MainFrame extends JFrame {
 				}
  			}
  			else if(b.getText().equals("삭제")){
- 				
+ 				int row = timeTable.getSelectedRow();
+				int col = timeTable.getSelectedColumn();
+				Selectedindex = -1;
+				for(int i = 0;i < GlobalVal.aGrade.size(); i++)
+  	            {
+					if(row > -1&&col > -1)
+					{
+	  	            	if(timetableModel.getValueAt(row, col).toString().split(" " + "\\(" + GlobalVal.aGrade.get(i).getprofessor() + "\\)")[0].equals(GlobalVal.aGrade.get(i).getclassname())&&GlobalVal.aGrade.get(i).getyear().equals(yearsemeList.getSelectedItem().toString().split("년도 ")[0])&&GlobalVal.aGrade.get(i).getsemester().equals(yearsemeList.getSelectedItem().toString().split("년도 ")[1].split("학기")[0])){
+	  	            		Selectedindex = i;
+	  	            		break;
+	  	            	}
+	  	            	else{
+	  	            		Selectedindex = -1;
+	  	            	}
+					}
+  	            }
+				if (Selectedindex>=0){
+					if ((Frame3.openCheck == 1)&&(GlobalVal.aGrade.get(Selectedindex).arToDo.size()>0)){
+						frame3.dispose();
+						Frame3.openCheck = 0;
+					}
+					if (Frame4.openCheck == 1){
+						frame4.dispose();
+						Frame4.openCheck = 0;
+					}
+					GlobalVal.aGrade.remove(Selectedindex);
+					UIUpdate.UpdateTimeTable(yearsemeList.getSelectedItem().toString().split("년도 ")[0], yearsemeList.getSelectedItem().toString().split("년도 ")[1].split("학기")[0]);
+					InitComboBox();
+				}
  			}
  		}
  	}
