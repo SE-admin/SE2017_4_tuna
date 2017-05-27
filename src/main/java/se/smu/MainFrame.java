@@ -9,6 +9,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +39,10 @@ import javax.swing.table.TableColumnModel;
 
 public class MainFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7714016838917102658L;
 	private JPanel buttonPanel;
 	private JButton subjectButton,todoButton,deleteButton;
 	
@@ -183,11 +189,29 @@ public class MainFrame extends JFrame {
         } 
      };
 	
+     class ExitListener2 implements WindowListener{
+		 
+		 public void windowClosing(WindowEvent e){
+			 Frame2.openCheck = 0;
+		 }
+		 public void windowOpened(WindowEvent e){}
+		 public void windowActivated(WindowEvent e){}
+		 public void windowDeactivated(WindowEvent e){}
+		 public void windowClosed(WindowEvent e){}
+		 public void windowIconified(WindowEvent e){}
+		 public void windowDeiconified(WindowEvent e){}
+	}
+     
      class MyActionListener implements ActionListener { 
  		public void actionPerformed(ActionEvent e) { 	
  			JButton b = (JButton)e.getSource();
  			if(b.getText().equals("과목관리")){
- 				
+ 				if (Frame2.openCheck == 0){
+					Frame2 frame2 = new Frame2();
+					frame2.setVisible(true);
+					frame2.addWindowListener(new ExitListener2());
+					Frame2.openCheck = 1;
+				}
  			}
  			else if(b.getText().equals("총ToDo관리")){
  				
