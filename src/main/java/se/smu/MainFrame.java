@@ -111,6 +111,7 @@ public class MainFrame extends JFrame {
 		((JLabel)yearsemeList.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
 		InitComboBox();
 		yearsemeList.setSelectedIndex(0);
+		yearsemeList.addActionListener(new ComboBoxListener());
 					
 		String[] tcolName = {"", "월","화","수","목","금","토","일"};
 		timetableModel = new DefaultTableModel(null, tcolName){
@@ -163,6 +164,9 @@ public class MainFrame extends JFrame {
         thread.start();
         //시간관리 쓰레드
         
+        //초기 화면 업데이트
+      	UIUpdate.UpdateTimeTable(yearsemeList.getSelectedItem().toString().split("년도 ")[0], yearsemeList.getSelectedItem().toString().split("년도 ")[1].split("학기")[0]);
+        //초기 화면 업데이트
         
 	}
 	
@@ -190,6 +194,23 @@ public class MainFrame extends JFrame {
  			}
  			else if(b.getText().equals("삭제")){
  				
+ 			}
+ 		}
+ 	}
+     
+     class ComboBoxListener implements ActionListener{
+ 		@Override
+ 		public void actionPerformed(ActionEvent e) {
+ 			@SuppressWarnings("unchecked")
+ 			JComboBox<String> cb = (JComboBox<String>)e.getSource();
+ 			if(cb == yearsemeList){
+ 					if (yearsemeList.getItemCount() > 0){
+ 						UIUpdate.UpdateTimeTable(yearsemeList.getSelectedItem().toString().split("년도 ")[0], yearsemeList.getSelectedItem().toString().split("년도 ")[1].split("학기")[0]);
+ 					}
+ 					else{
+ 						java.util.Calendar cal = java.util.Calendar.getInstance();
+ 						UIUpdate.UpdateTimeTable(Integer.toString(cal.get(Calendar.YEAR)),"1");
+ 					}
  			}
  		}
  	}
