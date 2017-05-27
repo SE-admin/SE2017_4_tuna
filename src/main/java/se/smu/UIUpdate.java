@@ -159,6 +159,45 @@ public class UIUpdate {
    		}
     }
 	
+	public static void UpdateTodoTable(){
+  		Object data[] = new Object[6];
+  		if(GlobalVal.aGrade.size()>0)
+  		{
+	  		if (Frame4.todotableModel.getRowCount() > 0) {
+	  		    for (int i = Frame4.todotableModel.getRowCount() - 1; i > -1; i--) {
+	  		    	Frame4.todotableModel.removeRow(i);
+	  		    }
+	  		}
+	  		for(int i=0;i<GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.size();i++)
+	  		{
+	  			data[0] = GlobalVal.aGrade.get(MainFrame.Selectedindex).getclassname();
+	  			data[1] = GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).gettodoName();
+ 	  			data[2] = GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getdeadLine();
+ 	  			data[3] = GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getendDate();
+ 	  			if(GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getdone() == 1){
+ 	  				data[4] = true;
+ 	  			}
+ 	  			else{
+ 	  				data[4] = false;
+ 	  			}
+ 	  			if(GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getimportant() == 1){
+ 	  				data[5] = true;
+ 	  			}
+ 	  			else{
+ 	  				data[5] = false;
+ 	  			}
+ 	  			
+ 	  			Frame4.todotableModel.insertRow(i, data);
+	  		}
+	  		try {
+	  			FileFunction.save(GlobalVal.aGrade);
+	 		} catch (IOException e) {
+	 			// TODO Auto-generated catch block
+	 			e.printStackTrace();
+	 		}
+  		}
+  		resizeColumnWidth(Frame4.todoTable);
+  	}
 	
 	 public static void resizeColumnWidth(JTable table) {
 	 	    final TableColumnModel columnModel = table.getColumnModel();

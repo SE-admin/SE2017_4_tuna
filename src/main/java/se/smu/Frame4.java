@@ -33,7 +33,7 @@ public class Frame4 extends JFrame {
 		static int SelIndex;
 		static int openCheck = 0;
 		private JScrollPane todotableScrollpane;
-		private JTable todoTable;
+		static JTable todoTable;
 		
 	Frame4(){
 		//초기화면 설정
@@ -87,6 +87,11 @@ public class Frame4 extends JFrame {
 		todotableScrollpane.setLocation(10,10);
 		add(todotableScrollpane);
 		//ToDO테이블 설정
+		
+		
+		//초기화면 설정
+		UIUpdate.UpdateTodoTable();
+		//초기화면 설정
 		
 	}
 	
@@ -200,6 +205,7 @@ public class Frame4 extends JFrame {
     				
     				GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).setdone(1);
     				GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).setendDate(sdf.format(dt).toString());
+    				UIUpdate.UpdateTodoTable();
     				
     				for(int i = 0;i < GlobalVal.aToDo.size(); i++){
     					if(GlobalVal.aToDo.get(i).gettodoName().equals(todotableModel.getValueAt(row, 1))&&GlobalVal.aToDo.get(i).getclassname().equals(todotableModel.getValueAt(row, 0))){
@@ -233,6 +239,7 @@ public class Frame4 extends JFrame {
     				}
     				GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).setdone(0);
     				GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).setendDate("");
+    				UIUpdate.UpdateTodoTable();
     				
     				for(int i = 0;i < GlobalVal.aToDo.size(); i++){
     					if(GlobalVal.aToDo.get(i).gettodoName().equals(todotableModel.getValueAt(row, 1))&&GlobalVal.aToDo.get(i).getclassname().equals(todotableModel.getValueAt(row, 0))){
