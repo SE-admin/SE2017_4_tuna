@@ -36,6 +36,16 @@ class upnameCompare implements Comparator<ToDo> {
 
 }
 
+class updeadLineCompare implements Comparator<ToDo> {
+	 
+
+		public int compare(ToDo arg0, ToDo arg1) {
+			// TODO Auto-generated method stub
+			return arg0.getdeadLine().compareTo(arg1.getdeadLine());
+		}
+
+}
+
 class upclassnameCompare implements Comparator<ToDo> {
 	 
 
@@ -51,6 +61,15 @@ class downnameCompare implements Comparator<ToDo> {
 		// TODO Auto-generated method stub
 		return arg1.gettodoName().compareTo(arg0.gettodoName());
 	}
+}
+
+class downdeadLineCompare implements Comparator<ToDo> {
+	 
+	public int compare(ToDo arg0, ToDo arg1) {
+		// TODO Auto-generated method stub
+		return arg1.getdeadLine().compareTo(arg0.getdeadLine());
+	}
+
 }
 
 class downclassnameCompare implements Comparator<ToDo> {
