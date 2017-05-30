@@ -37,6 +37,7 @@ public class Frame3 extends JFrame {
 	private JCheckBox importantCheckbox = new JCheckBox();
 	private JCheckBox doneCheckbox = new JCheckBox();
 	private JPanel messagePanel = new JPanel();
+	int orderCheck0 = 0, orderCheck1 = 0, orderCheck2 = 0, orderCheck3 = 0, orderCheck4 = 0, orderCheck5 = 0;
 	private JButton alarmsetButton = new JButton("알림설정");
 	private JButton alarmunsetButton = new JButton("알림삭제");
 	private JPanel buttonPanel = new JPanel();
@@ -46,8 +47,6 @@ public class Frame3 extends JFrame {
 	private JScrollPane todotableScrollpane;
 	
 	Frame3(){
-
-		
 		
 		//초기화면 설정
 		setTitle("총 ToDO관리");
@@ -75,6 +74,93 @@ public class Frame3 extends JFrame {
 				 
 			 }
 
+			MouseListener tableMouseListener = new MouseAdapter() { 
+			public void mouseClicked(MouseEvent mevt) {  
+	        	 JTable todoTable = ((JTableHeader) mevt.getSource()).getTable();
+	             TableColumnModel colModel = todoTable.getColumnModel();
+
+	             int index = colModel.getColumnIndexAtX(mevt.getX());
+	             if (index == -1) {
+	               return;
+	             }
+	             else if (index == 0){
+	            	 if (orderCheck0 == 0){
+	            		 Collections.sort(GlobalVal.aToDo, new upclassnameCompare());
+	            		 UIUpdate.UpdateAllTodoTable();
+	            		 orderCheck0 = 1;
+	            	 }
+	            	 else{
+	            		Collections.sort(GlobalVal.aToDo, new downclassnameCompare());
+	            		UIUpdate.UpdateAllTodoTable();
+	            		orderCheck0 = 0;
+	            	 }
+	             }
+	             else if (index == 1){
+	            	 if (orderCheck1 == 0){
+	            		 Collections.sort(GlobalVal.aToDo, new upnameCompare());
+	            		 UIUpdate.UpdateAllTodoTable();
+	      				orderCheck1 = 1;
+	            	 }
+	            	 else{
+	            		 Collections.sort(GlobalVal.aToDo, new downnameCompare());
+	            		 UIUpdate.UpdateAllTodoTable();
+	      				orderCheck1 = 0;
+	            	 }
+	             	
+	             }
+	             else if (index == 2){
+	            	 if (orderCheck2 == 0){
+	            		 Collections.sort(GlobalVal.aToDo, new updeadLineCompare());
+	            		 UIUpdate.UpdateAllTodoTable();
+	      				orderCheck2 = 1;
+	            	 }
+	            	 else{
+	            		 Collections.sort(GlobalVal.aToDo, new downdeadLineCompare());
+	            		 UIUpdate.UpdateAllTodoTable();
+	      				orderCheck2 = 0;
+	            	 }
+	             	
+	             }
+	             else if (index == 3){
+	            	 if (orderCheck3 == 0){
+	            		 Collections.sort(GlobalVal.aToDo, new upendDateCompare());
+	            		 UIUpdate.UpdateAllTodoTable();
+	      				orderCheck3 = 1;
+	            	 }
+	            	 else{
+	            		 Collections.sort(GlobalVal.aToDo, new downendDateCompare());
+	            		 UIUpdate.UpdateAllTodoTable();
+	      				orderCheck3 = 0;
+	            	 }
+	             	
+	             }
+	             else if (index == 4){
+	            	 if (orderCheck4 == 0){
+	            		 Collections.sort(GlobalVal.aToDo, new updoneCompare());
+	            		 UIUpdate.UpdateAllTodoTable();
+	      				orderCheck4 = 1;
+	            	 }
+	            	 else{
+	            		 Collections.sort(GlobalVal.aToDo, new downdoneCompare());
+	            		 UIUpdate.UpdateAllTodoTable();
+	      				orderCheck4 = 0;
+	            	 }
+	             	
+	             }
+	             else if (index == 5){
+	            	 if (orderCheck5 == 0){
+	            		 Collections.sort(GlobalVal.aToDo, new upimportantCompare());
+	            		 UIUpdate.UpdateAllTodoTable();
+	      				orderCheck5 = 1;
+	            	 }
+	            	 else{
+	            		 Collections.sort(GlobalVal.aToDo, new downimportantCompare());
+	            		 UIUpdate.UpdateAllTodoTable();
+	      				orderCheck5 = 0;
+	            	 }
+	             	
+	             }
+	         }
 
 		};
 		
