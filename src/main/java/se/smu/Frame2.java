@@ -167,6 +167,8 @@ public class Frame2 extends JFrame{
 					for(int i=0;i<GlobalVal.aGrade.size();i++)
 					{
 						if(GlobalVal.aGrade.get(i).getclassname().equals(g1.getclassname())){
+							GlobalVal.ErrorName = "중복";
+							JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 							check = 1;
 							break;
 						}
@@ -175,10 +177,14 @@ public class Frame2 extends JFrame{
 					for(int i = 0;i<GlobalVal.aGrade.size();i++){
 						if(GlobalVal.aGrade.get(i).getyear().equals(g1.getyear())&&GlobalVal.aGrade.get(i).getsemester().equals(g1.getsemester())&&(GlobalVal.aGrade.get(i).getday() == g1.getday())){
 							if( (Integer.parseInt(GlobalVal.aGrade.get(i).getstarttime()) <= Integer.parseInt(starttime)) && (Integer.parseInt(GlobalVal.aGrade.get(i).getendtime()) > Integer.parseInt(starttime)) ){
+							GlobalVal.ErrorName = "시간중복";
+							JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 								check = 1;
 								break;
 							}
 							else if( (Integer.parseInt(GlobalVal.aGrade.get(i).getstarttime()) < Integer.parseInt(endtime)) && (Integer.parseInt(GlobalVal.aGrade.get(i).getendtime()) >= Integer.parseInt(endtime)) ){
+							GlobalVal.ErrorName = "시간중복";
+							JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 								check = 1;
 								break;
 							}
@@ -186,6 +192,8 @@ public class Frame2 extends JFrame{
 					}
 					
 					if(classnameTextfield.getText().equals(null) || classnameTextfield.getText().equals("")){
+						GlobalVal.ErrorName = "과목명 공백";
+						JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 						check = 1;
 					}
 					
@@ -240,6 +248,8 @@ public class Frame2 extends JFrame{
 						for(int i=0;i<GlobalVal.aGrade.size();i++)
 						{
 							if(GlobalVal.aGrade.get(i).getclassname().equals(classname)){
+								GlobalVal.ErrorName = "중복";
+							JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 								check = 1;
 								break;
 							}
@@ -248,10 +258,14 @@ public class Frame2 extends JFrame{
 							{
 								if(GlobalVal.aGrade.get(i).getyear().equals(year)&&GlobalVal.aGrade.get(i).getsemester().equals(semester)&&GlobalVal.aGrade.get(i).getday() == day){
 									if( (Integer.parseInt(GlobalVal.aGrade.get(i).getstarttime()) <= Integer.parseInt(starttime)) && (Integer.parseInt(GlobalVal.aGrade.get(i).getendtime()) > Integer.parseInt(starttime)) ){
+										GlobalVal.ErrorName = "시간중복";
+							JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 										check = 1;
 										break;
 									}
 									else if( (Integer.parseInt(GlobalVal.aGrade.get(i).getstarttime()) < Integer.parseInt(endtime)) && (Integer.parseInt(GlobalVal.aGrade.get(i).getendtime()) >= Integer.parseInt(endtime)) ){
+										GlobalVal.ErrorName = "시간중복";
+							JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 										check = 1;
 										break;
 									}
