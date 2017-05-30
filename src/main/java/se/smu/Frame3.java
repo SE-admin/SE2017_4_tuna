@@ -56,6 +56,17 @@ class upendDateCompare implements Comparator<ToDo> {
 
 }
 
+class updoneCompare implements Comparator<ToDo> {
+	 
+
+	public int compare(ToDo arg0, ToDo arg1) {
+		// TODO Auto-generated method stub
+		return arg0.getdone() > arg1.getdone() ? -1 : arg0.getdone() < arg1.getdone() ? 1:0;
+	}
+
+}
+
+
 class upclassnameCompare implements Comparator<ToDo> {
 	 
 
@@ -87,6 +98,16 @@ class downendDateCompare implements Comparator<ToDo> {
 	public int compare(ToDo arg0, ToDo arg1) {
 		// TODO Auto-generated method stub
 		return arg1.getendDate().compareTo(arg0.getendDate());
+	}
+
+
+}
+
+class downdoneCompare implements Comparator<ToDo> {
+	 
+	public int compare(ToDo arg0, ToDo arg1) {
+		// TODO Auto-generated method stub
+		return arg0.getdone() < arg1.getdone() ? -1 : arg0.getdone() > arg1.getdone() ? 1:0;
 	}
 
 
