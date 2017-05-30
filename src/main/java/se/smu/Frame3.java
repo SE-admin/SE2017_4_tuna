@@ -26,6 +26,16 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
+class upnameCompare implements Comparator<ToDo> {
+	 
+
+	public int compare(ToDo arg0, ToDo arg1) {
+		// TODO Auto-generated method stub
+		return arg0.gettodoName().compareTo(arg1.gettodoName());
+	}
+
+}
+
 class upclassnameCompare implements Comparator<ToDo> {
 	 
 
@@ -34,6 +44,13 @@ class upclassnameCompare implements Comparator<ToDo> {
 			return arg0.getclassname().compareTo(arg1.getclassname());
 		}
 
+}
+
+class downnameCompare implements Comparator<ToDo> {
+	public int compare(ToDo arg0, ToDo arg1) {
+		// TODO Auto-generated method stub
+		return arg1.gettodoName().compareTo(arg0.gettodoName());
+	}
 }
 
 class downclassnameCompare implements Comparator<ToDo> {
