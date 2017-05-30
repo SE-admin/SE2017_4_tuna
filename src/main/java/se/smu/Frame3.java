@@ -38,6 +38,7 @@ public class Frame3 extends JFrame {
 	private JCheckBox doneCheckbox = new JCheckBox();
 	private JPanel messagePanel = new JPanel();
 	private JButton alarmsetButton = new JButton("알림설정");
+	private JButton alarmunsetButton = new JButton("알림삭제");
 	private JPanel buttonPanel = new JPanel();
 	private JLabel pinkLabel = new JLabel("알림은 PINK", JLabel.CENTER);
 	private JLabel yellowLabel = new JLabel("중요여부는 YELLOW", JLabel.CENTER);
@@ -177,6 +178,42 @@ public class Frame3 extends JFrame {
 						GlobalVal.ErrorName = "알림이 이미 설정되어 있습니다";
 						JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "\n 다시시도해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 					}
+					try {
+						FileFunction.save(GlobalVal.aGrade);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					if(Frame4.openCheck == 1){
+						UIUpdate.UpdateTodoTable();
+					}
+					UIUpdate.UpdateSetAlarmTable();
+				}
+			}
+			else if(b.getText().equals("알림삭제")){
+				int aGnum = 0, aTnum = 0;
+				int row = todoTable.getSelectedRow();
+				if (row > -1){
+					for(int i = 0;i < GlobalVal.aGrade.size(); i++){
+						if(GlobalVal.aGrade.get(i).getclassname().equals(todotableModel.getValueAt(row, 0))){
+							aGnum = i;
+							break;
+						}
+					}
+					for(int i = 0;i < GlobalVal.aGrade.get(aGnum).arToDo.size(); i++){
+						if(GlobalVal.aGrade.get(aGnum).arToDo.get(i).gettodoName().equals(todotableModel.getValueAt(row, 1))){
+							aTnum = i;
+							break;
+						}
+					}
+					if (GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getalarm() == 0){
+						GlobalVal.ErrorName = "알림이 설정되어있지 않습니다";
+						JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "\n 다시시도해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
+					}
+					else if (GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getalarm() == 1){
+						GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).UnSetAlarm();
+					}
+					
 					try {
 						FileFunction.save(GlobalVal.aGrade);
 					} catch (IOException e1) {
