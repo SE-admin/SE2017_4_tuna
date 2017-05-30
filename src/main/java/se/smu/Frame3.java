@@ -66,6 +66,15 @@ class updoneCompare implements Comparator<ToDo> {
 
 }
 
+class upimportantCompare implements Comparator<ToDo> {
+	 
+
+		public int compare(ToDo arg0, ToDo arg1) {
+			// TODO Auto-generated method stub
+			return arg0.getimportant() > arg1.getimportant() ? -1 : arg0.getimportant() < arg1.getimportant() ? 1:0;
+		}
+
+}
 
 class upclassnameCompare implements Comparator<ToDo> {
 	 
@@ -110,6 +119,15 @@ class downdoneCompare implements Comparator<ToDo> {
 		return arg0.getdone() < arg1.getdone() ? -1 : arg0.getdone() > arg1.getdone() ? 1:0;
 	}
 
+
+}
+
+class downimportantCompare implements Comparator<ToDo> {
+	 
+	public int compare(ToDo arg0, ToDo arg1) {
+		// TODO Auto-generated method stub
+		return arg0.getimportant() < arg1.getimportant() ? -1 : arg0.getimportant() > arg1.getimportant() ? 1:0;
+	}
 
 }
 
