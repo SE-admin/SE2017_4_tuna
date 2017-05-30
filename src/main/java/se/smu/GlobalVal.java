@@ -154,4 +154,5 @@ class ToDo implements Serializable {
 public class GlobalVal {
 	static ArrayList<Grade> aGrade = new ArrayList<Grade>();
 	static ArrayList<ToDo> aToDo = new ArrayList<ToDo>();
+	static String ErrorName = null;
 }
