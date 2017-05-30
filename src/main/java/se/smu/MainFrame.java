@@ -153,6 +153,91 @@ public class MainFrame extends JFrame {
 		add(timetablepanel);
 		//timetable end
 		
+
+
+
+		//알림 start
+		nearalarmPanel.setLayout(new BorderLayout());
+		nearalarmPanel.add(nearalarmLabel, BorderLayout.PAGE_START);
+		
+		String[] alarmcolumnString = {"과목명","항목명","남은시간"};
+		
+		setalarmModel = new DefaultTableModel(null, alarmcolumnString){
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 6325334502965261051L;
+
+			public boolean isCellEditable(int i, int c){
+				 return false;
+			 }
+		};
+		
+		setalarmTable = new JTable(setalarmModel);
+		setalarmTable.setRowSelectionAllowed(false);
+		for(int i = 0;i< setalarmTable.getColumnCount();i++){
+			setalarmTable.getColumnModel().getColumn(i).setCellRenderer( centerRenderer );
+		}
+		
+		nearalarmModel = new DefaultTableModel(null, alarmcolumnString){
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = -1362482264460594947L;
+
+			public boolean isCellEditable(int i, int c){
+				 return false;
+			 }
+		};
+		setTableCellRenderer(setalarmTable, new ColorRender());
+		
+		nearalarmTable = new JTable(nearalarmModel);
+		nearalarmTable.setRowSelectionAllowed(false);
+		for(int i = 0;i< nearalarmTable.getColumnCount();i++){
+			nearalarmTable.getColumnModel().getColumn(i).setCellRenderer( centerRenderer );
+		}
+		
+		
+		setalarmPanel.setLayout(new BorderLayout());
+		setalarmPanel.add(setalarmLabel, BorderLayout.PAGE_START);
+		setalarmtableScrollpane = new JScrollPane(setalarmTable);
+		nearalarmtableScrollpane = new JScrollPane(nearalarmTable);
+		setalarmPanel.add(setalarmtableScrollpane, BorderLayout.CENTER);
+		nearalarmPanel.add(nearalarmtableScrollpane, BorderLayout.CENTER);
+		
+		alarmPanel.setLayout(new GridLayout(2,1));
+		alarmPanel.add(setalarmPanel);
+		alarmPanel.add(nearalarmPanel);
+		alarmPanel.setSize(300, 600);
+		alarmPanel.setLocation(880,10);
+		//알림 end
+		
+		
+		
+		
+		//현재시간 표기 start
+		
+		timeLabel.setSize(200,20);
+		timeLabel.setLocation(1015,650);
+		//현재시간 표기  end
+		
+		
+		
+		//화면 추가
+		add(timeLabel);
+		add(buttonPanel);
+		add(alarmPanel);
+		add(timetablepanel);
+		//화면추가
+		
+		
+		
+		
+		//초기 화면 업데이트
+		UIUpdate.UpdateTimeTable(yearsemeList.getSelectedItem().toString().split("년도 ")[0], yearsemeList.getSelectedItem().toString().split("년도 ")[1].split("학기")[0]);
+		UIUpdate.UpdateSetAlarmTable();
+		//초기 화면 업데이트
+
 		//시간관리 쓰레드
 		class TimeThread extends Thread{
             public void run(){
@@ -179,6 +264,8 @@ public class MainFrame extends JFrame {
         //초기 화면 업데이트
         
 	}
+
+
 	
 	class ExitListener4 implements WindowListener{
 		 
@@ -390,6 +477,31 @@ public class MainFrame extends JFrame {
   	            return this;
   	    }
   	}
+
+  	public class ColorRender extends DefaultTableCellRenderer {
+ 	    /**
+		 * 
+		 */
+		private static final long serialVersionUID = 7890368871292959782L;
+
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean selected, 
+ 	          boolean focused, int row, int column) {
+ 	
+ 	            setEnabled(table == null || table.isEnabled());
+ 	
+ 	            setForeground(Color.black);
+ 	            setBackground(Color.white);
+ 	            
+ 				if(table.getValueAt(row, 2).equals("시간초과")){
+ 	            	setBackground(Color.LIGHT_GRAY);
+ 	            }
+ 				
+ 				setHorizontalAlignment(SwingConstants.CENTER);
+ 				
+ 	            super.getTableCellRendererComponent(table, value, selected, focused, row, column);
+ 	
+ 	            return this;
+ 	    }
 	
 	public static void InitComboBox() {
 		DefaultComboBoxModel<String> FindModel = (DefaultComboBoxModel<String>)yearsemeList.getModel();
