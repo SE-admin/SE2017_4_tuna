@@ -37,10 +37,16 @@ public class Frame3 extends JFrame {
 	private JCheckBox importantCheckbox = new JCheckBox();
 	private JCheckBox doneCheckbox = new JCheckBox();
 	private JPanel messagePanel = new JPanel();
+	private JButton alarmsetButton = new JButton("알림설정");
+	private JPanel buttonPanel = new JPanel();
+	private JLabel pinkLabel = new JLabel("알림은 PINK", JLabel.CENTER);
 	private JLabel yellowLabel = new JLabel("중요여부는 YELLOW", JLabel.CENTER);
+	private JLabel cyanLabel = new JLabel("알림과 중요여부는 CYAN", JLabel.CENTER);
 	private JScrollPane todotableScrollpane;
 	
 	Frame3(){
+
+		
 		
 		//초기화면 설정
 		setTitle("총 ToDO관리");
@@ -67,8 +73,41 @@ public class Frame3 extends JFrame {
 				}
 				 
 			 }
+
+
 		};
 		
+		//알림 버튼 설정
+		alarmsetButton.addActionListener(new MyActionListener());
+		alarmunsetButton.addActionListener(new MyActionListener());
+		buttonPanel.setLayout(new GridLayout(1,2));
+		buttonPanel.add(alarmsetButton);
+		buttonPanel.add(alarmunsetButton);
+		buttonPanel.setSize(625,50);
+		buttonPanel.setLocation(10,420);
+		add(buttonPanel);
+		//알림 버튼 설정
+
+		//테이블 설정
+		todotableHeader.addMouseListener(tableMouseListener);
+		//테이블 설정
+		
+		//안내 메시지 설정
+		
+		messagePanel.setLayout(new GridLayout(3,1));
+		
+		pinkLabel.setOpaque(true);
+		pinkLabel.setBackground(Color.PINK);
+	
+		
+		cyanLabel.setOpaque(true);
+		cyanLabel.setBackground(Color.CYAN);
+		
+		messagePanel.add(pinkLabel);
+		messagePanel.add(cyanLabel);
+		
+		//안내 메시지 설정
+
 		todoTable = new JTable(todotableModel);
 		setTableCellRenderer(todoTable, new ColorRender());
 		todoTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -112,6 +151,47 @@ public class Frame3 extends JFrame {
 
 	}
 	
+	class MyActionListener implements ActionListener { 
+		public void actionPerformed(ActionEvent e) { 	
+			JButton b = (JButton)e.getSource();
+			if(b.getText().equals("알림설정")){
+				int aGnum = 0, aTnum = 0;
+				int row = todoTable.getSelectedRow();
+				if (row > -1){
+					for(int i = 0;i < GlobalVal.aGrade.size(); i++){
+						if(GlobalVal.aGrade.get(i).getclassname().equals(todotableModel.getValueAt(row, 0))){
+							aGnum = i;
+							break;
+						}
+					}
+					for(int i = 0;i < GlobalVal.aGrade.get(aGnum).arToDo.size(); i++){
+						if(GlobalVal.aGrade.get(aGnum).arToDo.get(i).gettodoName().equals(todotableModel.getValueAt(row, 1))){
+							aTnum = i;
+							break;
+						}
+					}
+					if (GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getalarm() == 0){
+						GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).SetAlarm();
+					}
+					else if (GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getalarm() == 1){
+						GlobalVal.ErrorName = "알림이 이미 설정되어 있습니다";
+						JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "\n 다시시도해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
+					}
+					try {
+						FileFunction.save(GlobalVal.aGrade);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					if(Frame4.openCheck == 1){
+						UIUpdate.UpdateTodoTable();
+					}
+					UIUpdate.UpdateSetAlarmTable();
+				}
+			}
+		}
+	}
+
 	 public class CheckBoxModelListener implements TableModelListener {
 
 	        public void tableChanged(TableModelEvent e) {
