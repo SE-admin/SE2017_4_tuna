@@ -545,6 +545,8 @@ public class Frame4 extends JFrame {
 				String deadLineMin = (String) deadLineMinList.getSelectedItem();
 				String deadLine = deadLineYear + "-" + deadLineMonth + "-" + deadLineDay + " " + deadLineHour + ":" + deadLineMin;
 				if (!checkDate(deadLine,"yyyy-MM-dd HH:mm")){
+					GlobalVal.ErrorName = "날짜오류";
+					JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 					check = 1;
 				}
 				int done = endList.getSelectedIndex();			
@@ -557,6 +559,8 @@ public class Frame4 extends JFrame {
 					String endDateMin = (String) endDateMinList.getSelectedItem();
 					endDate = endDateYear + "-" + endDateMonth + "-" + endDateDay + " " + endDateHour + ":" + endDateMin;
 					if (!checkDate(endDate,"yyyy-MM-dd HH:mm")){
+						GlobalVal.ErrorName = "날짜오류";
+						JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 						check = 1;
 					}
 				}
@@ -565,6 +569,8 @@ public class Frame4 extends JFrame {
 				for(int i=0;i<GlobalVal.aGrade.get(SelIndex).arToDo.size();i++)
 				{
 					if(GlobalVal.aGrade.get(SelIndex).arToDo.get(i).gettodoName().equals(ToDoName)){
+						GlobalVal.ErrorName = "중복";
+					JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 						check = 1;
 						break;
 					}
@@ -591,6 +597,7 @@ public class Frame4 extends JFrame {
 					GlobalVal.aToDo.add(t1);
 					UIUpdate.UpdateAllTodoTable();
 				}
+				UIUpdate.UpdateSetAlarmTable();
 			}
 			else if(b.getText().equals("ToDo수정")){
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
@@ -619,16 +626,22 @@ public class Frame4 extends JFrame {
 				
 				for(int i = 0; i < GlobalVal.aGrade.get(SelIndex).arToDo.size();i++){
 					if (GlobalVal.aGrade.get(SelIndex).arToDo.get(i).gettodoName().equals(toDoName)){
+						GlobalVal.ErrorName = "중복";
+						JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 						check = 1;
 						break;
 					}
 				}
 				
 				if (!checkDate(deadLine,"yyyy-MM-dd HH:mm")&&!deadlineyearTextfield.getText().equals("")&&!deadlineyearTextfield.getText().equals(null)){
+					GlobalVal.ErrorName = "날짜오류";
+					JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 					check = 1;
 				}
 				
 				if (!checkDate(endDate,"yyyy-MM-dd HH:mm")&&!enddateyearTextfield.getText().equals("")&&!enddateyearTextfield.getText().equals(null)){
+					GlobalVal.ErrorName = "날짜오류";
+					JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 					check = 1;
 				}
 				
@@ -692,6 +705,7 @@ public class Frame4 extends JFrame {
 					importantList.setSelectedIndex(0);
 					
 					UIUpdate.UpdateTodoTable();
+					UIUpdate.UpdateSetAlarmTable();
 				}
 			}
 			else if(b.getText().equals("ToDo삭제")){
@@ -717,6 +731,7 @@ public class Frame4 extends JFrame {
 						UIUpdate.UpdateAllTodoTable();
 					}
 				}
+				UIUpdate.UpdateSetAlarmTable();
 			}
 			
 		}
