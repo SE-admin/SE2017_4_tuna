@@ -251,27 +251,29 @@ public class MainFrame extends JFrame {
 		UIUpdate.UpdateSetAlarmTable();
 		//초기 화면 업데이트
 
-		//시간관리 쓰레드
+
+		//시간 & 알림관리 쓰레드
 		class TimeThread extends Thread{
-            public void run(){
-                while(true){
-                   
-                	
-                    Date dt = new Date();
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-                    timeLabel.setText("현재시간 : " + sdf.format(dt).toString());
-                    try{
-                        Thread.sleep(1000);
-                    }catch(InterruptedException ue){
-                        System.out.println(ue.getMessage());
-                    }
-                }
-            }
-        }
-        TimeThread thread=new TimeThread();
-        thread.start();
-        //시간관리 쓰레드
-        
+	            public void run(){
+	                while(true){
+	                	UIUpdate.UpdateNearAlarmTable();
+	                	UIUpdate.UpdateAlarmTableForThread();
+	                	
+	                    Date dt = new Date();
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+	                    timeLabel.setText("현재시간 : " + sdf.format(dt).toString());
+	                    try{
+	                        Thread.sleep(1000);
+	                    }catch(InterruptedException ue){
+	                        System.out.println(ue.getMessage());
+	                    }
+	                }
+	            }
+	        }
+	    TimeThread thread=new TimeThread();
+	    thread.start();
+	    //시간 & 알림관리 쓰레드
+
         //초기 화면 업데이트
       	UIUpdate.UpdateTimeTable(yearsemeList.getSelectedItem().toString().split("년도 ")[0], yearsemeList.getSelectedItem().toString().split("년도 ")[1].split("학기")[0]);
         //초기 화면 업데이트
