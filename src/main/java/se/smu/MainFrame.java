@@ -502,7 +502,8 @@ public class MainFrame extends JFrame {
  	
  	            return this;
  	    }
-	
+  	}
+  	
 	public static void InitComboBox() {
 		DefaultComboBoxModel<String> FindModel = (DefaultComboBoxModel<String>)yearsemeList.getModel();
  		FindModel.removeAllElements();
