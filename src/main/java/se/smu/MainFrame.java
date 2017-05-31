@@ -61,6 +61,19 @@ public class MainFrame extends JFrame {
 	private Frame2 frame2;
 	private Frame4 frame4;
 	
+	DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+	static JTable setalarmTable = new JTable();
+	static JTable nearalarmTable = new JTable();
+	static DefaultTableModel nearalarmModel;
+	static DefaultTableModel setalarmModel;
+	private JLabel setalarmLabel = new JLabel("설정된 알림", JLabel.CENTER);
+	private JLabel nearalarmLabel = new JLabel("근접한 알림", JLabel.CENTER);
+	private JPanel nearalarmPanel = new JPanel();
+	private JPanel setalarmPanel = new JPanel();
+	private JPanel alarmPanel = new JPanel();
+	private JScrollPane setalarmtableScrollpane;
+	private JScrollPane nearalarmtableScrollpane;
+	
 	public static Boolean fileIsLive(String isLivefile) {
 	     File f1 = new File(isLivefile); 
 	     if ( f1.exists() ) {
