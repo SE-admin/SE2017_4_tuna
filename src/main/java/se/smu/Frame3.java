@@ -3,14 +3,23 @@ package se.smu;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 
 import javax.swing.DefaultCellEditor;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -169,115 +178,7 @@ public class Frame3 extends JFrame {
 		setVisible(true);
 		setLayout(null);
 		//초기화면 설정
-	
-		//테이블 설정
-		String[] tablecolumnnameString = {"과목명","항목명","마감 기한","실제 마감일","완료 여부","중요 여부"};
-		todotableModel = new DefaultTableModel(null, tablecolumnnameString){
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 6994338893990077266L;
 
-			public boolean isCellEditable(int i, int c){
-				if (c == 5||c == 4){
-					return true;
-				}
-				else{
-					return false;
-				}
-				 
-			 }
-
-			MouseListener tableMouseListener = new MouseAdapter() { 
-			public void mouseClicked(MouseEvent mevt) {  
-	        	 JTable todoTable = ((JTableHeader) mevt.getSource()).getTable();
-	             TableColumnModel colModel = todoTable.getColumnModel();
-
-	             int index = colModel.getColumnIndexAtX(mevt.getX());
-	             if (index == -1) {
-	               return;
-	             }
-	             else if (index == 0){
-	            	 if (orderCheck0 == 0){
-	            		 Collections.sort(GlobalVal.aToDo, new upclassnameCompare());
-	            		 UIUpdate.UpdateAllTodoTable();
-	            		 orderCheck0 = 1;
-	            	 }
-	            	 else{
-	            		Collections.sort(GlobalVal.aToDo, new downclassnameCompare());
-	            		UIUpdate.UpdateAllTodoTable();
-	            		orderCheck0 = 0;
-	            	 }
-	             }
-	             else if (index == 1){
-	            	 if (orderCheck1 == 0){
-	            		 Collections.sort(GlobalVal.aToDo, new upnameCompare());
-	            		 UIUpdate.UpdateAllTodoTable();
-	      				orderCheck1 = 1;
-	            	 }
-	            	 else{
-	            		 Collections.sort(GlobalVal.aToDo, new downnameCompare());
-	            		 UIUpdate.UpdateAllTodoTable();
-	      				orderCheck1 = 0;
-	            	 }
-	             	
-	             }
-	             else if (index == 2){
-	            	 if (orderCheck2 == 0){
-	            		 Collections.sort(GlobalVal.aToDo, new updeadLineCompare());
-	            		 UIUpdate.UpdateAllTodoTable();
-	      				orderCheck2 = 1;
-	            	 }
-	            	 else{
-	            		 Collections.sort(GlobalVal.aToDo, new downdeadLineCompare());
-	            		 UIUpdate.UpdateAllTodoTable();
-	      				orderCheck2 = 0;
-	            	 }
-	             	
-	             }
-	             else if (index == 3){
-	            	 if (orderCheck3 == 0){
-	            		 Collections.sort(GlobalVal.aToDo, new upendDateCompare());
-	            		 UIUpdate.UpdateAllTodoTable();
-	      				orderCheck3 = 1;
-	            	 }
-	            	 else{
-	            		 Collections.sort(GlobalVal.aToDo, new downendDateCompare());
-	            		 UIUpdate.UpdateAllTodoTable();
-	      				orderCheck3 = 0;
-	            	 }
-	             	
-	             }
-	             else if (index == 4){
-	            	 if (orderCheck4 == 0){
-	            		 Collections.sort(GlobalVal.aToDo, new updoneCompare());
-	            		 UIUpdate.UpdateAllTodoTable();
-	      				orderCheck4 = 1;
-	            	 }
-	            	 else{
-	            		 Collections.sort(GlobalVal.aToDo, new downdoneCompare());
-	            		 UIUpdate.UpdateAllTodoTable();
-	      				orderCheck4 = 0;
-	            	 }
-	             	
-	             }
-	             else if (index == 5){
-	            	 if (orderCheck5 == 0){
-	            		 Collections.sort(GlobalVal.aToDo, new upimportantCompare());
-	            		 UIUpdate.UpdateAllTodoTable();
-	      				orderCheck5 = 1;
-	            	 }
-	            	 else{
-	            		 Collections.sort(GlobalVal.aToDo, new downimportantCompare());
-	            		 UIUpdate.UpdateAllTodoTable();
-	      				orderCheck5 = 0;
-	            	 }
-	             	
-	             }
-	         }
-
-		};
-		
 		//알림 버튼 설정
 		alarmsetButton.addActionListener(new MyActionListener());
 		alarmunsetButton.addActionListener(new MyActionListener());
@@ -288,10 +189,6 @@ public class Frame3 extends JFrame {
 		buttonPanel.setLocation(10,420);
 		add(buttonPanel);
 		//알림 버튼 설정
-
-		//테이블 설정
-		todotableHeader.addMouseListener(tableMouseListener);
-		//테이블 설정
 		
 		//안내 메시지 설정
 		
@@ -309,6 +206,114 @@ public class Frame3 extends JFrame {
 		
 		//안내 메시지 설정
 
+		//테이블 설정
+				String[] tablecolumnnameString = {"과목명","항목명","마감 기한","실제 마감일","완료 여부","중요 여부"};
+				todotableModel = new DefaultTableModel(null, tablecolumnnameString){
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 6994338893990077266L;
+
+					public boolean isCellEditable(int i, int c){
+						if (c == 5||c == 4){
+							return true;
+						}
+						else{
+							return false;
+						}
+						 
+					 }
+				};
+				
+				MouseListener tableMouseListener = new MouseAdapter() { 
+					public void mouseClicked(MouseEvent mevt) {  
+			        	 JTable todoTable = ((JTableHeader) mevt.getSource()).getTable();
+			             TableColumnModel colModel = todoTable.getColumnModel();
+
+			             int index = colModel.getColumnIndexAtX(mevt.getX());
+			             if (index == -1) {
+			               return;
+			             }
+			             else if (index == 0){
+			            	 if (orderCheck0 == 0){
+			            		 Collections.sort(GlobalVal.aToDo, new upclassnameCompare());
+			            		 UIUpdate.UpdateAllTodoTable();
+			            		 orderCheck0 = 1;
+			            	 }
+			            	 else{
+			            		Collections.sort(GlobalVal.aToDo, new downclassnameCompare());
+			            		UIUpdate.UpdateAllTodoTable();
+			            		orderCheck0 = 0;
+			            	 }
+			             }
+			             else if (index == 1){
+			            	 if (orderCheck1 == 0){
+			            		 Collections.sort(GlobalVal.aToDo, new upnameCompare());
+			            		 UIUpdate.UpdateAllTodoTable();
+			      				orderCheck1 = 1;
+			            	 }
+			            	 else{
+			            		 Collections.sort(GlobalVal.aToDo, new downnameCompare());
+			            		 UIUpdate.UpdateAllTodoTable();
+			      				orderCheck1 = 0;
+			            	 }
+			             	
+			             }
+			             else if (index == 2){
+			            	 if (orderCheck2 == 0){
+			            		 Collections.sort(GlobalVal.aToDo, new updeadLineCompare());
+			            		 UIUpdate.UpdateAllTodoTable();
+			      				orderCheck2 = 1;
+			            	 }
+			            	 else{
+			            		 Collections.sort(GlobalVal.aToDo, new downdeadLineCompare());
+			            		 UIUpdate.UpdateAllTodoTable();
+			      				orderCheck2 = 0;
+			            	 }
+			             	
+			             }
+			             else if (index == 3){
+			            	 if (orderCheck3 == 0){
+			            		 Collections.sort(GlobalVal.aToDo, new upendDateCompare());
+			            		 UIUpdate.UpdateAllTodoTable();
+			      				orderCheck3 = 1;
+			            	 }
+			            	 else{
+			            		 Collections.sort(GlobalVal.aToDo, new downendDateCompare());
+			            		 UIUpdate.UpdateAllTodoTable();
+			      				orderCheck3 = 0;
+			            	 }
+			             	
+			             }
+			             else if (index == 4){
+			            	 if (orderCheck4 == 0){
+			            		 Collections.sort(GlobalVal.aToDo, new updoneCompare());
+			            		 UIUpdate.UpdateAllTodoTable();
+			      				orderCheck4 = 1;
+			            	 }
+			            	 else{
+			            		 Collections.sort(GlobalVal.aToDo, new downdoneCompare());
+			            		 UIUpdate.UpdateAllTodoTable();
+			      				orderCheck4 = 0;
+			            	 }
+			             	
+			             }
+			             else if (index == 5){
+			            	 if (orderCheck5 == 0){
+			            		 Collections.sort(GlobalVal.aToDo, new upimportantCompare());
+			            		 UIUpdate.UpdateAllTodoTable();
+			      				orderCheck5 = 1;
+			            	 }
+			            	 else{
+			            		 Collections.sort(GlobalVal.aToDo, new downimportantCompare());
+			            		 UIUpdate.UpdateAllTodoTable();
+			      				orderCheck5 = 0;
+			            	 }
+			             	
+			             }
+			         }
+				};
+		
 		todoTable = new JTable(todotableModel);
 		setTableCellRenderer(todoTable, new ColorRender());
 		todoTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -324,6 +329,7 @@ public class Frame3 extends JFrame {
 		todoTable.getModel().addTableModelListener(new CheckBoxModelListener());
 		
 		JTableHeader todotableHeader = todoTable.getTableHeader();
+		todotableHeader.addMouseListener(tableMouseListener);
 		todotableHeader.setReorderingAllowed(false);
 		
 		todotableScrollpane = new JScrollPane(todoTable);
