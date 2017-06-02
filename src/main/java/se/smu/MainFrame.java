@@ -255,7 +255,8 @@ public class MainFrame extends JFrame {
 		class TimeThread extends Thread{
             public void run(){
                 while(true){
-                   
+                	UIUpdate.UpdateNearAlarmTable();
+                	UIUpdate.UpdateAlarmTableForThread();
                 	
                     Date dt = new Date();
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 

@@ -613,8 +613,7 @@ public class Frame3 extends JFrame {
 	            setHorizontalAlignment(SwingConstants.CENTER);
 	            
 		        int aGnum = 0;
-		        @SuppressWarnings("unused")
-				int aTnum = 0;
+		        int aTnum = 0;
 		        for(int i = 0;i < GlobalVal.aGrade.size(); i++){
 					if(GlobalVal.aGrade.get(i).getclassname().equals(todotableModel.getValueAt(row, 0))){
 						aGnum = i;
@@ -627,10 +626,15 @@ public class Frame3 extends JFrame {
 						break;
 					}
 				}
-				if(todoTable.getValueAt(row, 5).equals(true)){
+				if (GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getalarm() == 1&&todoTable.getValueAt(row, 5).equals(true)){
+					setBackground(Color.cyan);
+				}
+				else if(todoTable.getValueAt(row, 5).equals(true)){
 	            	setBackground(Color.yellow);
 	            }
-
+				else if (GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getalarm() == 1){
+					setBackground(Color.pink);
+				}
 	
 	            super.getTableCellRendererComponent(todoTable, value, selected, focused, row, column);
 	
