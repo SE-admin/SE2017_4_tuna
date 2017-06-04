@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = -7714016838917102658L;
 	private JPanel buttonPanel;
-	private JButton subjectButton,todoButton,deleteButton;
+	private JButton subjectButton,todoButton,deleteButton,doneshowButton;
 	
 	private JLabel timeLabel = new JLabel("현재 시간");
 	
@@ -56,6 +56,7 @@ public class MainFrame extends JFrame {
 	HashMap<String , Color> map = new HashMap<String , Color>();
 	
 	static int Selectedindex = 0;
+	static int doneShow = 0;
 	
 	private Frame3 frame3;
 	private Frame2 frame2;
@@ -113,9 +114,11 @@ public class MainFrame extends JFrame {
 		todoButton.addActionListener(new MyActionListener());
 		deleteButton = new JButton("삭제");
 		deleteButton.addActionListener(new MyActionListener());
+		doneshowButton = new JButton("완료항목 보이기");
 		buttonPanel.add(subjectButton);
 		buttonPanel.add(deleteButton);
 		buttonPanel.add(todoButton);
+		buttonPanel.add(doneshowButton);
 		buttonPanel.setSize(860,50);
 		buttonPanel.setLocation(10,615);
 		add(buttonPanel);
