@@ -573,6 +573,7 @@ public class Frame3 extends JFrame {
 	    				GlobalVal.aToDo.get(aGnum).setdone(1);
 	    				GlobalVal.aToDo.get(aGnum).setendDate(sdf.format(dt).toString());
 	    				UIUpdate.UpdateAllTodoTable();
+	    				UIUpdate.UpdateSetAlarmTable();
 	    				if (Frame4.openCheck == 1){
 	    					UIUpdate.UpdateTodoTable();
 	    				}
@@ -607,6 +608,7 @@ public class Frame3 extends JFrame {
 	    				GlobalVal.aToDo.get(aGnum).setdone(0);
 	    				GlobalVal.aToDo.get(aGnum).setendDate("");
 	    				UIUpdate.UpdateAllTodoTable();
+	    				UIUpdate.UpdateSetAlarmTable();
 	    				if (Frame4.openCheck == 1){
 	    					UIUpdate.UpdateTodoTable();
 	    				}
