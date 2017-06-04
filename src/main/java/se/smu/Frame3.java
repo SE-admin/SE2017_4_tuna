@@ -155,6 +155,7 @@ public class Frame3 extends JFrame {
 	 */
 	private static final long serialVersionUID = 4327526838752658086L;
 	static int openCheck = 0;
+	int counttime, checktime;
 	static JTable todoTable;
 	static DefaultTableModel todotableModel;
 	private JCheckBox importantCheckbox = new JCheckBox();
@@ -356,6 +357,37 @@ public class Frame3 extends JFrame {
 		UIUpdate.initJTable();
 		UIUpdate.UpdateAllTodoTable();
 		//초기 화면 업데이트
+		
+		//테이블 관리 쓰레드
+		class tableThread extends Thread{
+            public void run(){
+                while(true){
+                		if(checktime == 0){
+                			counttime = 0;
+                		}
+                		else if(checktime == 1){
+                			counttime++;
+                		}
+                		
+                		if(counttime>100){
+                			todoTable.getModel().addTableModelListener(checkboxListener);
+                			counttime = 0;
+                			checktime = 0;
+                			System.out.println("체크완료");
+                			UIUpdate.initJTable();
+                			UIUpdate.UpdateAllTodoTable();
+                		}
+                    try{
+                        Thread.sleep(1);
+                    }catch(InterruptedException ue){
+                        System.out.println(ue.getMessage());
+                    }
+                }
+            }
+        }
+		tableThread thread=new tableThread();
+        thread.start();
+        //테이블 관리 쓰레드
 
 	}
 	
@@ -510,6 +542,8 @@ public class Frame3 extends JFrame {
 	                }
 	            }
 	            else if (column == 4){
+	            	todoTable.getModel().removeTableModelListener(checkboxListener);
+	            	checktime = 1;
 	            	TableModel model = (TableModel) e.getSource();
 	                Boolean checked = (Boolean) model.getValueAt(row, column);
 	                if (checked) { //체크시
