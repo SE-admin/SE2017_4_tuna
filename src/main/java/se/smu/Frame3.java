@@ -168,6 +168,7 @@ public class Frame3 extends JFrame {
 	private JLabel yellowLabel = new JLabel("중요여부는 YELLOW", JLabel.CENTER);
 	private JLabel cyanLabel = new JLabel("알림과 중요여부는 CYAN", JLabel.CENTER);
 	private JScrollPane todotableScrollpane;
+	CheckBoxModelListener checkboxListener = new CheckBoxModelListener();
 	
 	Frame3(){
 		
@@ -321,12 +322,12 @@ public class Frame3 extends JFrame {
 		todoTable.getColumn("중요 여부").setCellRenderer(checkboxrender);
 		importantCheckbox.setHorizontalAlignment(JLabel.CENTER);
 		todoTable.getColumn("중요 여부").setCellEditor(new DefaultCellEditor(importantCheckbox));
-		todoTable.getModel().addTableModelListener(new CheckBoxModelListener());
 		
 		todoTable.getColumn("완료 여부").setCellRenderer(checkboxrender);
 		doneCheckbox.setHorizontalAlignment(JLabel.CENTER);
 		todoTable.getColumn("완료 여부").setCellEditor(new DefaultCellEditor(doneCheckbox));
-		todoTable.getModel().addTableModelListener(new CheckBoxModelListener());
+		
+		todoTable.getModel().addTableModelListener(checkboxListener);
 		
 		JTableHeader todotableHeader = todoTable.getTableHeader();
 		todotableHeader.addMouseListener(tableMouseListener);
