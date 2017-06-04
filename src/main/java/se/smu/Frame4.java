@@ -34,6 +34,8 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
+import se.smu.Frame3.CheckBoxModelListener;
+
 public class Frame4 extends JFrame {
 		/**
 	 * 
@@ -81,6 +83,7 @@ public class Frame4 extends JFrame {
 	private JPanel oxPanel = new JPanel();
 	private JScrollPane todotableScrollpane;
 	static int openCheck = 0;
+	CheckBoxModelListener checkboxListener = new CheckBoxModelListener();
 		
 	Frame4(){
 		//초기화면 설정
@@ -269,12 +272,12 @@ public class Frame4 extends JFrame {
 		todoTable.getColumn("중요 여부").setCellRenderer(checkboxrender);
 		importantCheckbox.setHorizontalAlignment(JLabel.CENTER);
 		todoTable.getColumn("중요 여부").setCellEditor(new DefaultCellEditor(importantCheckbox));
-		todoTable.getModel().addTableModelListener(new CheckBoxModelListener());
 		
 		todoTable.getColumn("완료 여부").setCellRenderer(checkboxrender);
 		doneCheckbox.setHorizontalAlignment(JLabel.CENTER);
 		todoTable.getColumn("완료 여부").setCellEditor(new DefaultCellEditor(doneCheckbox));
-		todoTable.getModel().addTableModelListener(new CheckBoxModelListener());
+		
+		todoTable.getModel().addTableModelListener(checkboxListener);
 		
 		todotableScrollpane = new JScrollPane(todoTable);
 		todotableScrollpane.setSize(625,260);
