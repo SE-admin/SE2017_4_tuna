@@ -420,6 +420,7 @@ public class MainFrame extends JFrame {
  					UIUpdate.initJTable();
  					UIUpdate.UpdateAllTodoTable();
  				}
+ 				UIUpdate.UpdateSetAlarmTable();
  			}
  			else if(b.getText().equals("완료항목 보이기")){
  				b.setText("완료항목 숨기기");
@@ -431,6 +432,7 @@ public class MainFrame extends JFrame {
  					UIUpdate.initJTable();
  					UIUpdate.UpdateAllTodoTable();
  				}
+ 				UIUpdate.UpdateSetAlarmTable();
  			}
  		}
  	}
