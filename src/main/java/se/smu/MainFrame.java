@@ -115,6 +115,7 @@ public class MainFrame extends JFrame {
 		deleteButton = new JButton("삭제");
 		deleteButton.addActionListener(new MyActionListener());
 		doneshowButton = new JButton("완료항목 보이기");
+		doneshowButton.addActionListener(new MyActionListener());
 		buttonPanel.add(subjectButton);
 		buttonPanel.add(deleteButton);
 		buttonPanel.add(todoButton);
@@ -409,6 +410,14 @@ public class MainFrame extends JFrame {
 					UIUpdate.UpdateTimeTable(yearsemeList.getSelectedItem().toString().split("년도 ")[0], yearsemeList.getSelectedItem().toString().split("년도 ")[1].split("학기")[0]);
 					InitComboBox();
 				}
+ 			}
+ 			else if(b.getText().equals("완료항목 숨기기")){
+ 				b.setText("완료항목 보이기");
+ 				doneShow = 0;
+ 			}
+ 			else if(b.getText().equals("완료항목 보이기")){
+ 				b.setText("완료항목 숨기기");
+ 				doneShow = 1;
  			}
  		}
  	}
