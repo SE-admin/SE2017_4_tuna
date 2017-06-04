@@ -414,10 +414,24 @@ public class MainFrame extends JFrame {
  			else if(b.getText().equals("완료항목 숨기기")){
  				b.setText("완료항목 보이기");
  				doneShow = 0;
+ 				if(frame4.openCheck == 1){
+ 					UIUpdate.UpdateTodoTable();
+ 				}
+ 				if(frame3.openCheck == 1){
+ 					UIUpdate.initJTable();
+ 					UIUpdate.UpdateAllTodoTable();
+ 				}
  			}
  			else if(b.getText().equals("완료항목 보이기")){
  				b.setText("완료항목 숨기기");
  				doneShow = 1;
+ 				if(frame4.openCheck == 1){
+ 					UIUpdate.UpdateTodoTable();
+ 				}
+ 				if(frame3.openCheck == 1){
+ 					UIUpdate.initJTable();
+ 					UIUpdate.UpdateAllTodoTable();
+ 				}
  			}
  		}
  	}
