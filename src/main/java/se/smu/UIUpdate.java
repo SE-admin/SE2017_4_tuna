@@ -123,48 +123,96 @@ public class UIUpdate {
 						break;
 					}
 				}
-  	  			if(GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getalarm() == 1){
-  	  				data[0] = GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getclassname();
-  	  				data[1] = GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).gettodoName();
-  	  				
-  	  				String reqDateStr = GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getdeadLine();
-  	  				Date curDate = new Date(); 
-  	  				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
-  	  				Date reqDate = null;
-  					try {
-  						reqDate = dateFormat.parse(reqDateStr);
-  					} catch (ParseException e) {
-  						// TODO Auto-generated catch block
-  						e.printStackTrace();
-  					} 
-  	  				long reqDateTime = reqDate.getTime();
-  	  				try {
-  						curDate = dateFormat.parse(dateFormat.format(curDate));
-  					} catch (ParseException e) {
-  						// TODO Auto-generated catch block
-  						e.printStackTrace();
-  					} 
-  	  				long curDateTime = curDate.getTime();
-  	  				long sec = (reqDateTime - curDateTime) / 1000;
-  	  				int day = (int)TimeUnit.SECONDS.toDays(sec);
-  	  				String timestr = null;
-  	  				if (day==0){
-  	  					timestr = String.format("%02d", TimeUnit.SECONDS.toHours(sec) - (day *24)) + "시간 ";
-  	  				}
-  	  				else{
-  	  					timestr = String.format("%02d", day) + "일 " + String.format("%02d", TimeUnit.SECONDS.toHours(sec) - (day *24)) + "시간 ";
-  	  				}
-  	  				if (sec < 0){
-  	  					data[2] = "시간초과";
-  	  				}
-  	  				else{
-  	  					data[2] = timestr;
-  	  				}
-  	  				MainFrame.setalarmModel.setValueAt(data[2], i, 2);
-  	  				MainFrame.setalarmModel.fireTableDataChanged();
-  	  			}
+				if(MainFrame.doneShow == 1){
+	  	  			if(GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getalarm() == 1){
+	  	  				data[0] = GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getclassname();
+	  	  				data[1] = GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).gettodoName();
+	  	  				
+	  	  				String reqDateStr = GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getdeadLine();
+	  	  				Date curDate = new Date(); 
+	  	  				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
+	  	  				Date reqDate = null;
+	  					try {
+	  						reqDate = dateFormat.parse(reqDateStr);
+	  					} catch (ParseException e) {
+	  						// TODO Auto-generated catch block
+	  						e.printStackTrace();
+	  					} 
+	  	  				long reqDateTime = reqDate.getTime();
+	  	  				try {
+	  						curDate = dateFormat.parse(dateFormat.format(curDate));
+	  					} catch (ParseException e) {
+	  						// TODO Auto-generated catch block
+	  						e.printStackTrace();
+	  					} 
+	  	  				long curDateTime = curDate.getTime();
+	  	  				long sec = (reqDateTime - curDateTime) / 1000;
+	  	  				int day = (int)TimeUnit.SECONDS.toDays(sec);
+	  	  				String timestr = null;
+	  	  				if (day==0){
+	  	  					timestr = String.format("%02d", TimeUnit.SECONDS.toHours(sec) - (day *24)) + "시간 ";
+	  	  				}
+	  	  				else{
+	  	  					timestr = String.format("%02d", day) + "일 " + String.format("%02d", TimeUnit.SECONDS.toHours(sec) - (day *24)) + "시간 ";
+	  	  				}
+	  	  				if (sec < 0){
+	  	  					data[2] = "시간초과";
+	  	  				}
+	  	  				else{
+	  	  					data[2] = timestr;
+	  	  				}
+	  	  				MainFrame.setalarmModel.setValueAt(data[2], i, 2);
+	  	  				MainFrame.setalarmModel.fireTableDataChanged();
+	  	  			}
+				}
+				else if(MainFrame.doneShow == 0){
+					if(GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getdone() == 1){
+						continue;
+					}
+					else if(GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getdone() == 0)
+						if(GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getalarm() == 1){
+		  	  				data[0] = GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getclassname();
+		  	  				data[1] = GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).gettodoName();
+		  	  				
+		  	  				String reqDateStr = GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).getdeadLine();
+		  	  				Date curDate = new Date(); 
+		  	  				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
+		  	  				Date reqDate = null;
+		  					try {
+		  						reqDate = dateFormat.parse(reqDateStr);
+		  					} catch (ParseException e) {
+		  						// TODO Auto-generated catch block
+		  						e.printStackTrace();
+		  					} 
+		  	  				long reqDateTime = reqDate.getTime();
+		  	  				try {
+		  						curDate = dateFormat.parse(dateFormat.format(curDate));
+		  					} catch (ParseException e) {
+		  						// TODO Auto-generated catch block
+		  						e.printStackTrace();
+		  					} 
+		  	  				long curDateTime = curDate.getTime();
+		  	  				long sec = (reqDateTime - curDateTime) / 1000;
+		  	  				int day = (int)TimeUnit.SECONDS.toDays(sec);
+		  	  				String timestr = null;
+		  	  				if (day==0){
+		  	  					timestr = String.format("%02d", TimeUnit.SECONDS.toHours(sec) - (day *24)) + "시간 ";
+		  	  				}
+		  	  				else{
+		  	  					timestr = String.format("%02d", day) + "일 " + String.format("%02d", TimeUnit.SECONDS.toHours(sec) - (day *24)) + "시간 ";
+		  	  				}
+		  	  				if (sec < 0){
+		  	  					data[2] = "시간초과";
+		  	  				}
+		  	  				else{
+		  	  					data[2] = timestr;
+		  	  				}
+		  	  				MainFrame.setalarmModel.setValueAt(data[2], i, 2);
+		  	  				MainFrame.setalarmModel.fireTableDataChanged();
+						}
+	  	  			}
+				}
   	  	}
-     }
      
      public static void UpdateSetAlarmTable(){
      	Object data[] = new Object[3];
@@ -176,49 +224,100 @@ public class UIUpdate {
  	  	
  	  	for(int i=0;i<GlobalVal.aGrade.size();i++)
  	  	{
+ 	  		if(MainFrame.doneShow == 0)
+ 	  		{
+	 	  		for(int j=0;j<GlobalVal.aGrade.get(i).arToDo.size();j++){
+	 	  			if(GlobalVal.aGrade.get(i).arToDo.get(j).getdone() == 1){
+	 	  				continue;
+	 	  			}
+	 	  			else if(GlobalVal.aGrade.get(i).arToDo.get(j).getdone() == 0)
+	 	  			{
+		 	  			if(GlobalVal.aGrade.get(i).arToDo.get(j).getalarm() == 1){
+		 	  				data[0] = GlobalVal.aGrade.get(i).arToDo.get(j).getclassname();
+		 	  				data[1] = GlobalVal.aGrade.get(i).arToDo.get(j).gettodoName();
+		 	  				String reqDateStr = GlobalVal.aGrade.get(i).arToDo.get(j).getdeadLine();
+		 	  				Date curDate = new Date(); 
+		 	  				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
+		 	  				Date reqDate = null;
+		 					try {
+		 						reqDate = dateFormat.parse(reqDateStr);
+		 					} catch (ParseException e) {
+		 						// TODO Auto-generated catch block
+		 						e.printStackTrace();
+		 					} 
+		 	  				long reqDateTime = reqDate.getTime();
+		 	  				try {
+		 						curDate = dateFormat.parse(dateFormat.format(curDate));
+		 					} catch (ParseException e) {
+		 						// TODO Auto-generated catch block
+		 						e.printStackTrace();
+		 					} 
+		 	  				long curDateTime = curDate.getTime();
+		 	  				long sec = (reqDateTime - curDateTime) / 1000;
+		 	  				int day = (int)TimeUnit.SECONDS.toDays(sec);
+		 	  				String timestr = null;
+		 	  				if (day==0){
+		 	  					timestr = String.format("%02d", TimeUnit.SECONDS.toHours(sec) - (day *24)) + "시간 ";
+		 	  				}
+		 	  				else{
+		 	  					timestr = String.format("%02d", day) + "일 " + String.format("%02d", TimeUnit.SECONDS.toHours(sec) - (day *24)) + "시간 ";
+		 	  				}
+		 	  				if (sec < 0){
+		 	  					data[2] = "시간초과";
+		 	  				}
+		 	  				else{
+		 	  					data[2] = timestr;
+		 	  				}
+		 	  				MainFrame.setalarmModel.insertRow(MainFrame.setalarmModel.getRowCount(), data);
+		 	  			}
+	 	  			}
+	 	  	}
+ 	  	}
+ 	  	else if (MainFrame.doneShow == 1){
  	  		for(int j=0;j<GlobalVal.aGrade.get(i).arToDo.size();j++){
  	  			if(GlobalVal.aGrade.get(i).arToDo.get(j).getalarm() == 1){
- 	  				data[0] = GlobalVal.aGrade.get(i).arToDo.get(j).getclassname();
- 	  				data[1] = GlobalVal.aGrade.get(i).arToDo.get(j).gettodoName();
- 	  				String reqDateStr = GlobalVal.aGrade.get(i).arToDo.get(j).getdeadLine();
- 	  				Date curDate = new Date(); 
- 	  				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
- 	  				Date reqDate = null;
- 					try {
- 						reqDate = dateFormat.parse(reqDateStr);
- 					} catch (ParseException e) {
- 						// TODO Auto-generated catch block
- 						e.printStackTrace();
- 					} 
- 	  				long reqDateTime = reqDate.getTime();
- 	  				try {
- 						curDate = dateFormat.parse(dateFormat.format(curDate));
- 					} catch (ParseException e) {
- 						// TODO Auto-generated catch block
- 						e.printStackTrace();
- 					} 
- 	  				long curDateTime = curDate.getTime();
- 	  				long sec = (reqDateTime - curDateTime) / 1000;
- 	  				int day = (int)TimeUnit.SECONDS.toDays(sec);
- 	  				String timestr = null;
- 	  				if (day==0){
- 	  					timestr = String.format("%02d", TimeUnit.SECONDS.toHours(sec) - (day *24)) + "시간 ";
- 	  				}
- 	  				else{
- 	  					timestr = String.format("%02d", day) + "일 " + String.format("%02d", TimeUnit.SECONDS.toHours(sec) - (day *24)) + "시간 ";
- 	  				}
- 	  				if (sec < 0){
- 	  					data[2] = "시간초과";
- 	  				}
- 	  				else{
- 	  					data[2] = timestr;
- 	  				}
- 	  				MainFrame.setalarmModel.insertRow(MainFrame.setalarmModel.getRowCount(), data);
+	 	  			data[0] = GlobalVal.aGrade.get(i).arToDo.get(j).getclassname();
+					data[1] = GlobalVal.aGrade.get(i).arToDo.get(j).gettodoName();
+					String reqDateStr = GlobalVal.aGrade.get(i).arToDo.get(j).getdeadLine();
+					Date curDate = new Date(); 
+					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
+					Date reqDate = null;
+					try {
+						reqDate = dateFormat.parse(reqDateStr);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+					long reqDateTime = reqDate.getTime();
+					try {
+						curDate = dateFormat.parse(dateFormat.format(curDate));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+					long curDateTime = curDate.getTime();
+					long sec = (reqDateTime - curDateTime) / 1000;
+					int day = (int)TimeUnit.SECONDS.toDays(sec);
+					String timestr = null;
+					if (day==0){
+						timestr = String.format("%02d", TimeUnit.SECONDS.toHours(sec) - (day *24)) + "시간 ";
+					}
+					else{
+						timestr = String.format("%02d", day) + "일 " + String.format("%02d", TimeUnit.SECONDS.toHours(sec) - (day *24)) + "시간 ";
+					}
+					if (sec < 0){
+						data[2] = "시간초과";
+					}
+					else{
+						data[2] = timestr;
+					}
+					MainFrame.setalarmModel.insertRow(MainFrame.setalarmModel.getRowCount(), data);
  	  			}
  	  		}
  	  	}
- 	  	
-      }
+ 	  }
+ 	 	
+    }
 
 	public static void UpdateTimeTable(String Year, String Seme){
 		Object data[] = new Object[8];
