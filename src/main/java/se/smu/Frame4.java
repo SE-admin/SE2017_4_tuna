@@ -84,6 +84,7 @@ public class Frame4 extends JFrame {
 	private JScrollPane todotableScrollpane;
 	static int openCheck = 0;
 	CheckBoxModelListener checkboxListener = new CheckBoxModelListener();
+	int counttime, checktime;
 		
 	Frame4(int SelectedIndex){
 		SelIndex = SelectedIndex;
@@ -289,6 +290,36 @@ public class Frame4 extends JFrame {
 		//초기화면 설정
 		UIUpdate.UpdateTodoTable();
 		//초기화면 설정
+		
+			//테이블 관리 쓰레드
+			class tableThread extends Thread{
+				public void run(){
+		                while(true){
+		                		if(checktime == 0){
+		                			counttime = 0;
+		                		}
+		                		else if(checktime == 1){
+		                			counttime++;
+		                		}
+		                		
+		                		if(counttime>100){
+		                			todoTable.getModel().addTableModelListener(checkboxListener);
+		                			counttime = 0;
+		                			checktime = 0;
+		                			System.out.println("체크완료");
+		                			UIUpdate.UpdateTodoTable();
+		                		}
+		                    try{
+		                        Thread.sleep(1);
+		                    }catch(InterruptedException ue){
+		                        System.out.println(ue.getMessage());
+		                    }
+		                }
+		            }
+		        }
+				tableThread thread=new tableThread();
+		        thread.start();
+		        //테이블 관리 쓰레드
 	}
 	
 	public boolean checkDate(String szDate, String szFormat) {
@@ -401,6 +432,8 @@ public class Frame4 extends JFrame {
                 }
             }
             else if (column == 4){
+            	todoTable.getModel().removeTableModelListener(checkboxListener);
+            	checktime = 1;
             	TableModel model = (TableModel) e.getSource();
                 Boolean checked = (Boolean) model.getValueAt(row, column);
                 if (checked) { //체크시
@@ -421,7 +454,7 @@ public class Frame4 extends JFrame {
     				
     				GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).setdone(1);
     				GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).setendDate(sdf.format(dt).toString());
-    				UIUpdate.UpdateTodoTable();
+    				
     				
     				for(int i = 0;i < GlobalVal.aToDo.size(); i++){
     					if(GlobalVal.aToDo.get(i).gettodoName().equals(todotableModel.getValueAt(row, 1))&&GlobalVal.aToDo.get(i).getclassname().equals(todotableModel.getValueAt(row, 0))){
@@ -429,6 +462,8 @@ public class Frame4 extends JFrame {
     						break;
     					}
     				}
+    				
+    				UIUpdate.UpdateTodoTable();
     				if (Frame3.openCheck == 1){
     					GlobalVal.aToDo.get(aGnum).setdone(1);
     					GlobalVal.aToDo.get(aGnum).setendDate(sdf.format(dt).toString());
@@ -455,14 +490,15 @@ public class Frame4 extends JFrame {
     				}
     				GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).setdone(0);
     				GlobalVal.aGrade.get(aGnum).arToDo.get(aTnum).setendDate("");
-    				UIUpdate.UpdateTodoTable();
-    				
+    					
     				for(int i = 0;i < GlobalVal.aToDo.size(); i++){
     					if(GlobalVal.aToDo.get(i).gettodoName().equals(todotableModel.getValueAt(row, 1))&&GlobalVal.aToDo.get(i).getclassname().equals(todotableModel.getValueAt(row, 0))){
     						aGnum = i;
     						break;
     					}
     				}
+    				
+    				UIUpdate.UpdateTodoTable();
     				if (Frame3.openCheck == 1){
     					GlobalVal.aToDo.get(aGnum).setdone(0);
     					GlobalVal.aToDo.get(aGnum).setendDate("");
