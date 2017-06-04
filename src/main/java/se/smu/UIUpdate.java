@@ -327,24 +327,46 @@ public class UIUpdate {
 	  	  		}
 	  	  		for(int i=0;i<GlobalVal.aToDo.size();i++)
 	  	  		{
-	  	  			data[0] = GlobalVal.aToDo.get(i).getclassname();
-	 	  			data[1] = GlobalVal.aToDo.get(i).gettodoName();
-	 	  			data[2] = GlobalVal.aToDo.get(i).getdeadLine();
-	 	  			data[3] = GlobalVal.aToDo.get(i).getendDate();
-	 	  			if (GlobalVal.aToDo.get(i).getdone() == 1){
-	 	  				data[4] = true;
-	 	  			}
-	 	  			else{
-	 	  				data[4] = false;
-	 	  			}
-	 	  			if (GlobalVal.aToDo.get(i).getimportant() == 1){
-	 	  				data[5] = true;
-	 	  			}
-	 	  			else{
-	 	  				data[5] = false;
-	 	  			}
-	 	  			
-	 	  			Frame3.todotableModel.insertRow(i, data);
+	  	  			if(MainFrame.doneShow == 1){
+		  	  			data[0] = GlobalVal.aToDo.get(i).getclassname();
+		 	  			data[1] = GlobalVal.aToDo.get(i).gettodoName();
+		 	  			data[2] = GlobalVal.aToDo.get(i).getdeadLine();
+		 	  			data[3] = GlobalVal.aToDo.get(i).getendDate();
+		 	  			if (GlobalVal.aToDo.get(i).getdone() == 1){
+		 	  				data[4] = true;
+		 	  			}
+		 	  			else{
+		 	  				data[4] = false;
+		 	  			}
+		 	  			if (GlobalVal.aToDo.get(i).getimportant() == 1){
+		 	  				data[5] = true;
+		 	  			}
+		 	  			else{
+		 	  				data[5] = false;
+		 	  			}
+		 	  			
+		 	  			Frame3.todotableModel.insertRow(Frame3.todotableModel.getRowCount(), data);
+	  	  			}
+	  	  			else if(MainFrame.doneShow == 0){
+		  	  			data[0] = GlobalVal.aToDo.get(i).getclassname();
+		 	  			data[1] = GlobalVal.aToDo.get(i).gettodoName();
+		 	  			data[2] = GlobalVal.aToDo.get(i).getdeadLine();
+		 	  			data[3] = GlobalVal.aToDo.get(i).getendDate();
+		 	  			if (GlobalVal.aToDo.get(i).getdone() == 1){
+		 	  				continue;
+		 	  			}
+		 	  			else{
+		 	  				data[4] = false;
+		 	  			}
+		 	  			if (GlobalVal.aToDo.get(i).getimportant() == 1){
+		 	  				data[5] = true;
+		 	  			}
+		 	  			else{
+		 	  				data[5] = false;
+		 	  			}
+		 	  			
+		 	  			Frame3.todotableModel.insertRow(Frame3.todotableModel.getRowCount(), data);
+		  	  		}
 	  	  		}
 	  	  		try {
 	  	 			FileFunction.save(GlobalVal.aGrade);
@@ -353,7 +375,6 @@ public class UIUpdate {
 	  	 		e.printStackTrace();
 	  	 	}
     	}
-    	resizeColumnWidth(Frame3.todoTable);
     }
 	
 	public static void initJTable(){
