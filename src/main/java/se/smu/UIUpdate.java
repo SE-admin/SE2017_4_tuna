@@ -50,6 +50,7 @@ public class UIUpdate {
   	  	for(int i=0;i<GlobalVal.aGrade.size();i++)
   	  	{
   	  		for(int j=0;j<GlobalVal.aGrade.get(i).arToDo.size();j++){
+  	  			if(MainFrame.doneShow == 1){
   	  				String reqDateStr = GlobalVal.aGrade.get(i).arToDo.get(j).getdeadLine();
   	  				Date curDate = new Date(); 
   	  				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
@@ -71,6 +72,33 @@ public class UIUpdate {
   	  				long minute = (reqDateTime - curDateTime) / 1000;
   	  				Todo_Index_Timeleft temp = new Todo_Index_Timeleft(minute, i, j);
   	  				listOfTodoByIndex.add(temp);
+  	  			}
+  	  			else if(MainFrame.doneShow == 0){
+  	  				if (GlobalVal.aGrade.get(i).arToDo.get(j).getdone() == 1){
+  	  					continue;
+  	  				}
+  	  				String reqDateStr = GlobalVal.aGrade.get(i).arToDo.get(j).getdeadLine();
+	  				Date curDate = new Date(); 
+	  				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm"); 
+	  				Date reqDate = null;
+					try {
+						reqDate = dateFormat.parse(reqDateStr);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+	  				long reqDateTime = reqDate.getTime();
+	  				try {
+						curDate = dateFormat.parse(dateFormat.format(curDate));
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+	  				long curDateTime = curDate.getTime();
+	  				long minute = (reqDateTime - curDateTime) / 1000;
+	  				Todo_Index_Timeleft temp = new Todo_Index_Timeleft(minute, i, j);
+	  				listOfTodoByIndex.add(temp);
+  	  			}
   	  		}  		
   	  	}
   	  	
