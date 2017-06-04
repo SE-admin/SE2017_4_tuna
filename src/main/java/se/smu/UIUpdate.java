@@ -402,26 +402,52 @@ public class UIUpdate {
 	  		    	Frame4.todotableModel.removeRow(i);
 	  		    }
 	  		}
-	  		for(int i=0;i<GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.size();i++)
-	  		{
-	  			data[0] = GlobalVal.aGrade.get(MainFrame.Selectedindex).getclassname();
-	  			data[1] = GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).gettodoName();
- 	  			data[2] = GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getdeadLine();
- 	  			data[3] = GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getendDate();
- 	  			if(GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getdone() == 1){
- 	  				data[4] = true;
- 	  			}
- 	  			else{
- 	  				data[4] = false;
- 	  			}
- 	  			if(GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getimportant() == 1){
- 	  				data[5] = true;
- 	  			}
- 	  			else{
- 	  				data[5] = false;
- 	  			}
- 	  			
- 	  			Frame4.todotableModel.insertRow(i, data);
+	  		
+	  		if(MainFrame.doneShow == 1){
+		  		for(int i=0;i<GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.size();i++)
+		  		{
+		  			data[0] = GlobalVal.aGrade.get(MainFrame.Selectedindex).getclassname();
+		  			data[1] = GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).gettodoName();
+	 	  			data[2] = GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getdeadLine();
+	 	  			data[3] = GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getendDate();
+	 	  			if(GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getdone() == 1){
+	 	  				data[4] = true;
+	 	  			}
+	 	  			else{
+	 	  				data[4] = false;
+	 	  			}
+	 	  			if(GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getimportant() == 1){
+	 	  				data[5] = true;
+	 	  			}
+	 	  			else{
+	 	  				data[5] = false;
+	 	  			}
+	 	  			
+	 	  			Frame4.todotableModel.insertRow(Frame4.todotableModel.getRowCount(), data);
+		  		}
+	  		}
+	  		else if(MainFrame.doneShow == 0){
+	  			for(int i=0;i<GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.size();i++)
+		  		{
+		  			data[0] = GlobalVal.aGrade.get(MainFrame.Selectedindex).getclassname();
+		  			data[1] = GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).gettodoName();
+	 	  			data[2] = GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getdeadLine();
+	 	  			data[3] = GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getendDate();
+	 	  			if(GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getdone() == 1){
+	 	  				continue;
+	 	  			}
+	 	  			else{
+	 	  				data[4] = false;
+	 	  			}
+	 	  			if(GlobalVal.aGrade.get(MainFrame.Selectedindex).arToDo.get(i).getimportant() == 1){
+	 	  				data[5] = true;
+	 	  			}
+	 	  			else{
+	 	  				data[5] = false;
+	 	  			}
+	 	  			
+	 	  			Frame4.todotableModel.insertRow(Frame4.todotableModel.getRowCount(), data);
+		  		}
 	  		}
 	  		try {
 	  			FileFunction.save(GlobalVal.aGrade);
@@ -430,7 +456,6 @@ public class UIUpdate {
 	 			e.printStackTrace();
 	 		}
   		}
-  		resizeColumnWidth(Frame4.todoTable);
   	}
 	
 	 public static void resizeColumnWidth(JTable table) {
