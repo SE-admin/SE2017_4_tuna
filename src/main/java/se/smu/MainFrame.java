@@ -322,10 +322,9 @@ public class MainFrame extends JFrame {
         					}
           	            }
 	        			if (Selectedindex >= 0){
-        					frame4 = new Frame4();
+        					frame4 = new Frame4(Selectedindex);
         					frame4.setVisible(true);
         					frame4.addWindowListener(new ExitListener4());
-        					Frame4.SelIndex = Selectedindex;
         					Frame4.openCheck = 1;
         				}
         			}

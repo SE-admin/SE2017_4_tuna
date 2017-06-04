@@ -85,7 +85,8 @@ public class Frame4 extends JFrame {
 	static int openCheck = 0;
 	CheckBoxModelListener checkboxListener = new CheckBoxModelListener();
 		
-	Frame4(){
+	Frame4(int SelectedIndex){
+		SelIndex = SelectedIndex;
 		//초기화면 설정
 		setTitle("과목별 ToDO관리");
 		setLayout(null);
