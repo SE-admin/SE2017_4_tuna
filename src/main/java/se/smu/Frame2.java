@@ -315,6 +315,9 @@ public class Frame2 extends JFrame{
 							UIUpdate.initJTable();
 							UIUpdate.UpdateAllTodoTable();
 						}
+						if(Frame4.openCheck == 1){
+							UIUpdate.UpdateTodoTable();
+						}
 						MainFrame.InitComboBox();
 					}
 				}
