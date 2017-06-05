@@ -310,6 +310,8 @@ public class Frame2 extends JFrame{
 							yearTextfield.setText("");
 						}
 						UIUpdate.UpdateTimeTable(MainFrame.yearsemeList.getSelectedItem().toString().split("년도 ")[0], MainFrame.yearsemeList.getSelectedItem().toString().split("년도 ")[1].split("학기")[0]);
+						UIUpdate.UpdateSetAlarmTable();
+						
 						MainFrame.InitComboBox();
 					}
 				}
