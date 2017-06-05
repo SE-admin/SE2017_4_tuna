@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -318,6 +319,8 @@ public class MainFrame extends JFrame {
         						}
         						else{
             						Selectedindex = -1;
+            						GlobalVal.ErrorName = "과목선택이 안되어있습니다.";
+    								JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "\n선택후 다시 진행해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
             					}
         					}
           	            }
