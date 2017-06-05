@@ -579,6 +579,11 @@ public class Frame4 extends JFrame {
 				int check = 0;
 				String classname = GlobalVal.aGrade.get(SelIndex).getclassname();
 				String ToDoName = todonameTextfield.getText();
+				if(ToDoName.equals("")||ToDoName.equals(null)){
+					GlobalVal.ErrorName = "항목명 공백";
+					JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
+					check = 1;
+				}
 				String endDate = "";
 				
 				String deadLineYear = deadlineyearTextfield.getText();
@@ -608,12 +613,12 @@ public class Frame4 extends JFrame {
 					}
 				}
 				int important = importantList.getSelectedIndex();
-				ToDo t1 = new ToDo(ToDoName, deadLine, endDate, done, important, classname);
+				ToDo t1 = new ToDo(ToDoName, deadLine, endDate, done, important, classname);		
 				for(int i=0;i<GlobalVal.aGrade.get(SelIndex).arToDo.size();i++)
 				{
 					if(GlobalVal.aGrade.get(SelIndex).arToDo.get(i).gettodoName().equals(ToDoName)){
 						GlobalVal.ErrorName = "중복";
-					JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 						check = 1;
 						break;
 					}
