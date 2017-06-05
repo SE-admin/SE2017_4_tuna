@@ -311,7 +311,10 @@ public class Frame2 extends JFrame{
 						}
 						UIUpdate.UpdateTimeTable(MainFrame.yearsemeList.getSelectedItem().toString().split("년도 ")[0], MainFrame.yearsemeList.getSelectedItem().toString().split("년도 ")[1].split("학기")[0]);
 						UIUpdate.UpdateSetAlarmTable();
-						
+						if(Frame3.openCheck == 1){
+							UIUpdate.initJTable();
+							UIUpdate.UpdateAllTodoTable();
+						}
 						MainFrame.InitComboBox();
 					}
 				}
