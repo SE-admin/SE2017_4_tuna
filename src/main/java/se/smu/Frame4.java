@@ -764,17 +764,16 @@ public class Frame4 extends JFrame {
 				int index = todoTable.getSelectedRow();
 				int rowNum = 0;
 				
-				for(int i = 0;i < GlobalVal.aToDo.size(); i++){
-					if(GlobalVal.aGrade.get(SelIndex).arToDo.get(index).getclassname().equals(GlobalVal.aToDo.get(i).getclassname())){
-						if(GlobalVal.aGrade.get(SelIndex).arToDo.get(index).gettodoName().equals(GlobalVal.aToDo.get(i).gettodoName())){
-							rowNum = i;
-							break;
-						}
-					}
-				}
-
 				if (index >= 0)
 				{
+					for(int i = 0;i < GlobalVal.aToDo.size(); i++){
+						if(GlobalVal.aGrade.get(SelIndex).arToDo.get(index).getclassname().equals(GlobalVal.aToDo.get(i).getclassname())){
+							if(GlobalVal.aGrade.get(SelIndex).arToDo.get(index).gettodoName().equals(GlobalVal.aToDo.get(i).gettodoName())){
+								rowNum = i;
+								break;
+							}
+						}
+					}
 					GlobalVal.aGrade.get(SelIndex).arToDo.remove(index);
 					UIUpdate.UpdateTodoTable();
 					
@@ -782,8 +781,12 @@ public class Frame4 extends JFrame {
 						GlobalVal.aToDo.remove(rowNum);
 						UIUpdate.UpdateAllTodoTable();
 					}
+					UIUpdate.UpdateSetAlarmTable();
 				}
-				UIUpdate.UpdateSetAlarmTable();
+				else{
+					GlobalVal.ErrorName = "ToDo항목 미선택";
+					JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\nToDo항목 선택후 다시진행해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
+				}
 			}
 			
 		}
