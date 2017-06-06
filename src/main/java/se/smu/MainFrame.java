@@ -319,8 +319,6 @@ public class MainFrame extends JFrame {
         						}
         						else{
             						Selectedindex = -1;
-            						GlobalVal.ErrorName = "과목선택이 안되어있습니다.";
-    								JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "\n선택후 다시 진행해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
             					}
         					}
           	            }
@@ -330,6 +328,10 @@ public class MainFrame extends JFrame {
         					frame4.addWindowListener(new ExitListener4());
         					Frame4.openCheck = 1;
         				}
+	        			else if(Selectedindex < 0){
+	        				GlobalVal.ErrorName = "과목선택이 안되어있습니다.";
+							JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "\n선택후 다시 진행해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
+	        			}
         			}
         		}
       	  	} 
