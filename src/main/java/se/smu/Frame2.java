@@ -156,6 +156,7 @@ public class Frame2 extends JFrame{
 	    
 				JButton b = (JButton)e.getSource();
 				if(b.getText().equals("등록")){
+					int check = 0;
 					String classname = classnameTextfield.getText();
 					String professor = professorTextfield.getText();
 					int day = dayList.getSelectedIndex();
@@ -164,7 +165,6 @@ public class Frame2 extends JFrame{
 					String year = yearTextfield.getText();
 					String semester = (String) semeList.getSelectedItem();
 					Grade g1 = new Grade(classname,professor,day,starttime,endtime,year,semester);
-					int check = 0;
 					for(int i=0;i<GlobalVal.aGrade.size();i++)
 					{
 						if(GlobalVal.aGrade.get(i).getclassname().equals(g1.getclassname())){
@@ -194,6 +194,12 @@ public class Frame2 extends JFrame{
 					
 					if(classnameTextfield.getText().equals(null) || classnameTextfield.getText().equals("")){
 						GlobalVal.ErrorName = "과목명 공백";
+						JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
+						check = 1;
+					}
+					
+					if(professor.equals("")||professor.equals(null)){
+						GlobalVal.ErrorName = "교수이름 공백";
 						JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 						check = 1;
 					}
