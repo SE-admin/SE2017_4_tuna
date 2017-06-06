@@ -204,6 +204,12 @@ public class Frame2 extends JFrame{
 						check = 1;
 					}
 					
+					if(year.equals("")||year.equals(null)){
+						GlobalVal.ErrorName = "수강년도 공백";
+						JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\n 다시입력해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
+						check = 1;
+					}
+					
 					
 					if (check == 0){
 						GlobalVal.aGrade.add(g1);
