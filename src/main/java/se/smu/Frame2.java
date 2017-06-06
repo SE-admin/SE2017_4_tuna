@@ -235,11 +235,14 @@ public class Frame2 extends JFrame{
 							}
 							else{
 								index = -1;
-        						GlobalVal.ErrorName = "과목선택이 안되어있습니다.";
-								JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "\n선택후 다시 진행해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
 							}
 						}
 	  	            }
+					
+					if(index < 0){
+						GlobalVal.ErrorName = "과목선택이 안되어있습니다.";
+						JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "\n선택후 다시 진행해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
+					}
 
 					
 					if (index >= 0)
