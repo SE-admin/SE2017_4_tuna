@@ -428,6 +428,10 @@ public class Frame3 extends JFrame {
 					}
 					UIUpdate.UpdateSetAlarmTable();
 				}
+				else if (row < 0){
+					GlobalVal.ErrorName = "ToDo항목 미선택";
+					JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "입니다.\nToDo항목 선택후 다시진행해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
+				}
 			}
 			else if(b.getText().equals("알림삭제")){
 				int aGnum = 0, aTnum = 0;
