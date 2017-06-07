@@ -414,6 +414,10 @@ public class MainFrame extends JFrame {
 					UIUpdate.UpdateTimeTable(yearsemeList.getSelectedItem().toString().split("년도 ")[0], yearsemeList.getSelectedItem().toString().split("년도 ")[1].split("학기")[0]);
 					InitComboBox();
 				}
+				else if(Selectedindex < 0){
+					GlobalVal.ErrorName = "과목선택이 안되어있습니다.";
+					JOptionPane.showMessageDialog(null,  GlobalVal.ErrorName + "\n선택후 다시 진행해주세요", GlobalVal.ErrorName, JOptionPane.ERROR_MESSAGE);
+				}
  			}
  			else if(b.getText().equals("완료항목 숨기기")){
  				b.setText("완료항목 보이기");
